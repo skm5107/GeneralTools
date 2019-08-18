@@ -1,0 +1,30 @@
+#alias,varName,varNcol,formatSpec,isSaved,varMult,varUnits,varDesc,notes
+#q,q,d,q,L,d,q,q,q
+#,#,#,#,#,#,#,#,#
+#MATLAB group_name from utest_csvs.csv (any one of the aliases for a csv group).,MATLAB variable name. Accepts nested tables as var.subname.,Number of delimiter-separated columns in variable with delimiters specified in the CSV list.,MATLAB formatspec. do not use * to skip,Save the column for MATLAB (or delete it). Use this rather than formatspec * to skip columns to ensure writeability.,Multiplier as header = raw*mult.,Saved into Properties.VariableUnits.,Saved into Properties.VariableDescriptions.,#
+#csv0.csv related,#,#,#,#,#,#,#,#
+fake0alias,col3var,3,f,1,5,%,%,%
+fake0alias,mult05,1,q,1,NaN,unitsHere,descHere,%
+#csv1.csv,#,#,#,#,#,#,#,#
+fake1,firstSavedVar,2,C,1,%,unitsHere,descHere,%
+fake1,unsaved,3,q,0,NaN,%,%,%
+fake1,lastSavedVar,4,C,1,%,%,%,%
+#csv2.csv related,#,#,#,#,#,#,#,#
+fake2,onlySavedVar,2,C,1,1,%,%,%
+fake2,unsaved,1,q,0,1,%,%,%
+#,#,#,#,#,#,#,#,#
+#example.csv related,#,#,#,#,#,#,#,#
+real1,name1.sub1,1,{;}C,1,1,g/ft,NextIsBlank,%
+real1,Name2,1,q,0,1,N*m,%,%
+real1,name1.sub3,1,d,1,5,km,DescC Lorem Ipsum,%
+real1,Name4.sub1,1,{|}L,0,1,slugs,descD,%
+real1,Name4.sub3,1,{dd-M;}D,1,1,keV, !@#$%^&*()_+DescE,%
+real1,Name4.sub2.subsubA,1,L,0,1,NextIsBlank,descF !@#$^&*())_+,%
+real1,name7,1,{|}r,1,1,,DescG; g,%
+real1,Name4.sub2.subsubB,1,{;}t,1,1,lastunits,"""descLast, with comma in quotes""",%
+# Constants,#,#,#,#,#,#,#,
+const,varName,1,q,1,1,,MATLAB VariableName,
+const,value,1,q,1,1,,MATLAB table value,
+const,valType,1,q,1,1,,MATLAB VariableType (extended),
+const,valUnits,1,q,1,1,,MATLAB VariableUnits,
+const,valDesc,1,q,1,1,,MATLAB VariableDescription,

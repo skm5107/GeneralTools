@@ -1,0 +1,17 @@
+#filePath,alias,subName,isPartial,headerNrows,delimiter,tierNum,notes
+#q,{;}q,q,L,d,q,d,q
+#,#,#,#,#,#,#,#
+#Folder/CSV Names (use / or \),"MATLAB request name. This is what's tied to each list of headers. You can enter multiple names in multiple rows to provide aliases, but nested folders need to have same name.",Subname that uniquely matches (main one can be blank) the group_name to the file_name.,If CSV name is not exact match.,Number of rows to ignore at the top of the CSV. Will also ignores any additional # rows.,#,Always read in tier = 0. Read in >0 on request. Blank/ignored for folders.,#
+"#""List of fake unit testing CSV files (grouped by identical formatting) and their folder structure. Includes all information necessary to import each file, excluding any that varies by header.""",#,#,#,#,#,#,#
+#description of set 1,#,#,#,#,#,#,#
+csv0.csv,fake0; fake0alias,,0,0,.,10,fake # delimited file with no subname
+csv0a.csv,fake0; fake0alias,a,0,0,.,10,fake # delimited file with subname
+csv1.csv,fake1,,0,1,;,1,fake ; delimited file with no subname and no aliases
+csv2A.csv,fake2,A,0,1,|,2,fake | delimited file with 2 subnames and no default subname
+csv2B.csv,fake2,B,0,1,|,2,fake | delimited file with 2 subnames and no default subname
+#Real Files,#,#,#,#,#,#,#
+utest_wkey.csv,real1; partial1; realheads1; format1,,0,5,",",NaN,formatting unit test entered in header key
+utest_wheaders.csv,imported1; format2,,0,5,",",NaN,formatting unit test with in-situ headers
+utest_example/level1a/level2a/level3a/utest_format3a.csv,fullpath1; format3,needSub,0,5,",",3,TableDescription here
+utest_example\level3a\utest_format3a.csv,partialpath1; format3,,1,1,",",3,TableDescription here
+const.csv,const,,0,1,",",NaN,value and metadata for loading relevant constants
