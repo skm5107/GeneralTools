@@ -1,0 +1,22 @@
+type,unitA,valA,unitB,valB,fcnHndl,note
+C,C,d,C,d,q,q{;}
+Type of units (dimension),Original units (its request abbreviation),Original value (does not need to = 1),Destination unit (its request abbreviation),Destination value,Function handle for non-multiplicative conversions,#
+#,#,unitA,#,unitB,#,#
+"Unit conversion information. Note that generic SI prefixes are handled in unit prefixes.csv. Add new lines to provide multiple abbreviations (""ac"" and ""acre"")",#,#,#,#,#,#
+length,ft,1,in,12,,
+length,m,1,ft,3.28125,,
+area,ac,1,m2,4046.85642,,
+area,acre,1,m2,4046.85642,,
+volume,L,1,m3,0.001,,
+mass,g,1,grain,15.4323584,,
+mass,lb,1,g,453.59237,,
+mass,lbm,1,g,453.59237,,
+force,ton,1,lb,2000,,
+force,tonne,1,ton,1.10231131,,
+force,lb,1,N,4.44822162,,
+force,lbf,1,N,4.44822162,,
+angle,rad,3.141592654,deg,180,,
+temperature,C,NaN,F,NaN,CtoF,
+temperature,F,NaN,C,NaN,FtoC,
+temperature,C,NaN,K,NaN,CtoK,
+temperature,K,NaN,C,NaN,KtoC,

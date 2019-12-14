@@ -16,7 +16,7 @@ classdef Rand
                 sz = [1 1];
             end
             if nargin < 3
-                decimals = [];
+                decimals = 0;
             end
             
             upper = max(bounds);

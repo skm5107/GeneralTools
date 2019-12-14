@@ -1,7 +1,4 @@
 classdef ImportKey
-    % Info for an importing key (CSV key, header key, and optional directory map)
-    % Resolves CSV alias and folder levels
-    
     properties (SetAccess = immutable)
         projWord string
     end
@@ -18,16 +15,13 @@ classdef ImportKey
         headsName = "headers.csv"
     end
     
-    %% Constructor & Runner
     methods
         function self = ImportKey(projWord)
             if nargin > 0
                 self.projWord = projWord;
             end
         end
-    end
-    
-    methods      
+  
         function self = run(self)
             self.topPath = fullfile(self.projWord, self.folderLoc);
             raw = self.key_read(self.filesName);
@@ -37,7 +31,6 @@ classdef ImportKey
         end
     end
     
-    %% External Methods
     methods (Static)
         function [alias, subName] = alias_lookup(fileKey, partialName)
             map = ImportKey.dirMap_fake(fileKey);
@@ -47,12 +40,11 @@ classdef ImportKey
             assert(length(unique(fullName)) == 1, "Import:File", sprintf("FileName does not have unique alias+subname: %s", partialName))
             
             irow = fileKey.fileName == unique(fullName);
-            alias = Fcn.uncell(fileKey.alias(irow));
-            subName = Fcn.uncell(fileKey.subName(irow));
+            alias = Arr.uncell(fileKey.alias(irow));
+            subName = Arr.uncell(fileKey.subName(irow));
         end
     end
     
-    %% Lookup Methods
     methods (Static, Access = private)
         function map = dirMap_fake(fileKey)
             map = table();
@@ -62,7 +54,6 @@ classdef ImportKey
         end
     end
     
-    %% Formatting Methods
     methods (Access = private)
         function raw = key_read(self, fileName)
             pathKey = fullfile(self.topPath, fileName);

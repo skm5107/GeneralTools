@@ -1,25 +1,12 @@
-classdef AutoImported %%TODO: unit test
-    %Import any csv as a formatted table using only its path (assumes datatype information in header).
-    
-    % Constructor Inputs
-    properties (SetAccess = immutable)
-        path string
-    end
-    
-    % Overrideable Inputs
+classdef AutoImported
     properties
+        path (1,1) string
         headerRows cell
-        comment_style string
-        commentHeader_style string
-        readRow_end double
+        comment_style (1,1) string
+        commentHeader_style (1,1) string
+        readRow_end (1,1) double
     end
     
-    % Outputs
-    properties (SetAccess = private)
-        final
-    end
-    
-    % Intermediates
     properties (Access = private)
         HeadInfo = HeaderImporter
         BodyInfo = BodyImporter
@@ -27,29 +14,23 @@ classdef AutoImported %%TODO: unit test
         Body = FormattedCsv
     end
     
-    %% Constructor
     methods
         function self = AutoImported(path)
             if nargin > 0
                 self.path = path;
             end
         end
-    end
-    
-    %% Getters
-    methods
-        function [final, self] = run(self)
-            self.HeadInfo = self.getHeadInfo;
-            self.BodyInfo = self.getBodyInfo;
-            [~, rawHead] = ImportedRaw(self.HeadInfo).run;
+
+        function final = run(self)
+            self.HeadInfo = self.getHeadInfo();
+            self.BodyInfo = self.getBodyInfo();
+            rawHead = ImportedRaw(self.HeadInfo).run;
             self.Header = ImportedHeader(rawHead);
-            [~, self.Body] = ImportedRaw(self.BodyInfo).run;
+            self.Body = ImportedRaw(self.BodyInfo).run;
             final = FormattedCsv(self.Body, self.Header).run;
-            self.final = final;
         end
     end
     
-    %% Initialize Importers
     methods (Access = private)
         function HeadInfo = getHeadInfo(self)
             HeadInfo = HeaderImporter(self.path);

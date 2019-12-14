@@ -1,9 +1,7 @@
 classdef FormattedTable
-    % Raw imported array converted to table with requested datatypes
-    
-    properties (SetAccess = immutable, GetAccess = protected)
+    properties (GetAccess = protected)
         raw cell
-        FormatVect FormatVector
+        FormatVect (1,1) FormatVector
     end
     
     properties (SetAccess = private)
@@ -17,23 +15,20 @@ classdef FormattedTable
             end
             if nargin > 1
                 self.FormatVect = FormatVect;
-                Except(size(self.raw,2)).verifyEqual(self.FormatVect.length, "raw width vs FormatVect length");
+                assert(size(self.raw,2) == self.FormatVect.length, "FormattedTable:Vars", "raw width ~= FormatVect length");
             end
         end
-    end
-    
-    methods
-        function [formatted, self] = run(self)
-            Var = self.raw; %sets MATLAB default variable names %%TODO: move to MATLAB constants
+        
+        function formatted = run(self)
+            Var = self.raw;
             for icol = 1:size(Var, 2)
                 Var(:, icol) = self.datatype(Var(:, icol), self.FormatVect, icol);
             end
-            self.formatted = cell2table(Var);
-            formatted = self.formatted;
+            Var = cellfun(@Val.castMissing, Var, 'uni', false);
+            formatted = cell2table(Var);
         end
     end
     
-    %% Methods
     methods (Static, Access = private)
         function raw = datatype(raw, FormatVect, icol)
             iparser = FormatVect.parseVect(icol);
@@ -48,13 +43,13 @@ classdef FormattedTable
                 raw = FormattedTable.fastConvert(raw, ihndl, istyle);
             else
                 ihndl = FormatVect.ref.fcnHndl{icol};
-                raw = cellfun(@(elem) ihndl(elem, istyle), raw, 'UniformOutput', 0);
+                raw = cellfun(@(elem) ihndl(elem, istyle), raw, 'uni', false);
             end
         end
         
         function [raw, hasParsing] = col_parse(raw, iparser)
-            if Fcn.isFull(iparser)
-                raw = cellfun(@(elem) Frmt.parse(elem, iparser), raw, 'UniformOutput', 0);
+            if Val.isFull(iparser)
+                raw = cellfun(@(elem) Frmt.parse(elem, iparser), raw, 'uni', false);
                 hasParsing = true;
             else
                 hasParsing = false;

@@ -1,20 +1,16 @@
 classdef HeaderImporter < AbstImporter
-    % Info for textscanning any file header
-    
-    %% Properties
-    properties (Access = public)
+    properties
         comment_style = '';
         headerRows = {'VariableNames', 'VariableTypes', ...
                       'VariableUnits', 'VariableDescriptions', ...
                       'Description'};
     end
     
-    properties (Dependent, SetAccess = private)
+    properties (Dependent)
         nVars
         readRow_end
     end
     
-    %% Constructor
     methods
         function self = HeaderImporter(path)
             if nargin < 1
@@ -24,7 +20,6 @@ classdef HeaderImporter < AbstImporter
         end
     end
     
-    %% Setters
     methods
         function nVars = get.nVars(self)
             line1 = ImportedRaw.line_read(self.path, self.readRow_start);

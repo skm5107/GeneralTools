@@ -1,7 +1,4 @@
 classdef BodyImporter < AbstImporter
-    % Info for textscanning the body of any file
-    
-    %% Properties
     properties (Access = public)
         readRow_end = inf;
         nVars
@@ -9,13 +6,13 @@ classdef BodyImporter < AbstImporter
         comment_style
     end
     
-    %% Constructor
     methods
         function self = BodyImporter(path, nVars, readRow_start, readRow_end)
             if nargin < 1
                 path = [];
             end
             self = self@AbstImporter(path);
+            
             if nargin > 1 && ~isempty(nVars)
                 self.nVars = nVars;
             end

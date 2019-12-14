@@ -1,16 +1,26 @@
 classdef ImportedHeader < AbstHeader
-    % Header information for FormattedCsv as readin from ImportedRaw using HeaderImporter.
-    
-    %% Properties
     properties
-        Imported ImportedRaw
+        Imported (1,1) ImportedRaw
     end
     
-    properties (Dependent, Access = private)
+    properties (Dependent)
         cleaned
-    end
-    
-    %% Constructor
+
+        varNames
+        varUnits
+        varDescs
+        
+        ConvertVect
+        varMult
+        isSaved
+        
+        tblDesc
+        notes
+        
+        nVars
+        varNcol
+    end    
+
     methods
         function self = ImportedHeader(Imported)
             if nargin > 0
@@ -18,8 +28,7 @@ classdef ImportedHeader < AbstHeader
             end
         end
     end
-    
-    %% Getters
+
     methods
         function cleaned = get.cleaned(self)
             cleaned = strrep(self.Imported.raw, ...
@@ -55,7 +64,6 @@ classdef ImportedHeader < AbstHeader
         end
     end
     
-    %% Default Getters
     methods
         function isSaved = get.isSaved(self)
             isSaved = true([1 self.Imported.Info.nVars]);
@@ -72,22 +80,5 @@ classdef ImportedHeader < AbstHeader
         function nVars = get.nVars(self)
             nVars = self.Imported.Info.nVars;
         end
-    end
-    
-    %% Inherited Properties
-    properties (Dependent, SetAccess = protected)
-        varNames
-        varUnits
-        varDescs
-        
-        ConvertVect
-        varMult
-        isSaved
-        
-        tblDesc
-        notes
-        
-        nVars
-        varNcol
     end
 end

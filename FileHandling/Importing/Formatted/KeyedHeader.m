@@ -79,7 +79,7 @@ classdef KeyedHeader < AbstHeader
         end
         
         function fileHeaders = headers_select(self)
-            header_inds = any(self.Key.headers.alias == string(Fcn.uncell(self.fileRow.alias)), 2); %TODO: fix
+            header_inds = any(self.Key.headers.alias == string(Arr.uncell(self.fileRow.alias)), 2); %TODO: fix
             fileHeaders = self.Key.headers(header_inds, :);
         end
     end    

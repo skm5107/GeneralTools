@@ -1,0 +1,25 @@
+prefix,mult,note
+C,d,q{;}
+#,#,#
+Prefix letter ,Multiplier to convert from base unit to prefix,#
+Prefixes for unit converions,#,#
+Y,1E+24,
+Z,1E+21,
+E,1E+18,
+P,1E+15,
+T,1E+12,
+G,1000000000,
+M,1000000,
+k,1000,
+h,100,
+da,10,
+d,0.1,
+c,0.01,
+m,0.001,
+u,0.000001,actually mu
+n,0.000000001,
+p,1E-12,
+f,1E-15,
+a,1E-18,
+z,1E-21,
+y,1E-24,

@@ -54,7 +54,7 @@ classdef FullPath
         function fullPath = fullpath_make(self, ifile)
             top = self.topPath;
             fldrs = self.getrow(self.folders, ifile);
-            fldrpath = Fcn.uncell(fldrs);
+            fldrpath = Arr.uncell(fldrs);
             file = self.getrow(self.fileName, ifile);
             fullPath = fullfile(top, fldrpath{:}, file);
         end

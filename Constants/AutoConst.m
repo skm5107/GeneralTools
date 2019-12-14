@@ -1,6 +1,4 @@
-classdef AutoConst
-    % Automatic constant loading from requested folder and file identifiers
-    
+classdef AutoConst    
     properties (SetAccess = immutable)
         IDs ConstIDs
     end
@@ -20,16 +18,13 @@ classdef AutoConst
         headerAlias = "const";
     end
     
-    %% Constructor & AutoGetter
     methods
         function self = AutoConst(IDs)
             if nargin > 0
                 self.IDs = IDs;
             end
         end
-    end
-    
-    methods
+
         function [const, self] = run(self)
             self.folderMap = ConstMapper(self.IDs.constFolders).run;
             self.fileMap = ConstRequestor(self.IDs.constFiles, self.folderMap).run;

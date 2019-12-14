@@ -1,6 +1,4 @@
 classdef ConstIDs
-    % Identifiers to load constant folders and files for a project
-    
     properties (SetAccess = private)        
         constFolders string
         constFiles string
@@ -15,7 +13,6 @@ classdef ConstIDs
         caseIDs
     end
     
-    %% Constructor
     methods
         function self = ConstIDs(genID, projID, rulesID, metaIDs)
             if nargin > 0

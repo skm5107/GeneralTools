@@ -1,0 +1,109 @@
+classdef Cls < handle & matlab.mixin.Copyable
+    properties (Hidden)
+        rows
+    end
+    
+    methods
+        function rows = get.rows(self)
+            rows = table();
+            for ipos = 1:length(self)
+                rows = [rows; self(ipos).getrows]; %#ok<AGROW>
+            end
+        end
+        
+        function rows = makerows(self, varargin)
+            rows = table();
+            for jvar = [varargin{:}]
+                rows.(jvar) = reshape(self.(jvar), 1, []);
+            end
+        end
+        
+        function arr = copyn(self, qty)
+            arr = self;
+            for icop = 1:qty-1
+                arr = [arr, copy(self)];
+            end
+        end
+    end
+    
+    methods (Static)
+        function Made = maker(str_qtys, classHndl)
+            Made = cellfun(@objrepat(
+            Made = repmat(classHndl(name), [1, str2double(qty)]);
+        end
+        
+        function setted = appendNoEmpty(current, new)
+            if ~Val.isFull(current)
+                setted = new;
+            elseif ismissing(new)
+                setted = missing;
+            else
+                setted = [current, new];
+            end
+        end
+        
+        function converted = cast(orig, class) %#ok<INUSL>
+            fcn = class + "(orig)";
+            converted = eval(fcn);
+        end
+        
+        function tf = isempty(current)
+            empty = eval(class(current)+".empty");
+            origWarn = warning('off', 'MATLAB:structOnObject');
+            try
+                tf = isequaln(struct(current), struct(empty));
+            catch
+                tf = isempty(current);
+            end
+            if class(current) == "string"
+                tf = tf || current == "";
+            end
+            warning(origWarn.state, 'MATLAB:structOnObject')
+        end
+    end
+    
+    methods (Static)
+        [uniqued, repeat_qty] = unique(rowsWcopies)
+        [isEqual, vals] = hndlEqual(a, b, props)
+    end
+    
+    methods (Static)
+        function tbl = row_make(obj, props)
+            tbl = table();
+            for jprop = props
+                if ~iscell(jprop{:})
+                    tbl.(jprop{:}) = obj.(jprop{:});
+                else
+                    iprop = Arr.uncell(jprop);
+                    tbl.(iprop) = {obj.(iprop)};
+                end
+            end
+        end
+        
+        function classes = allclasses(value)
+            class1 = string(class(value));
+            classes = [class1; superclasses(class1)];
+        end
+        
+        function varargout = prop_add(prop)
+            if size(prop, 2) == nargout
+                for iout = 1:nargout
+                    varargout{iout} = prop(:, iout);
+                end
+            else
+                varargout = deal(repmat(prop, [1, nargout]));
+            end
+            varargout = num2cell(varargout, 1);
+        end
+        
+        function obj = table2class(tbl, obj, props)
+            if nargin < 3
+                props = intersect(tbl.Properties.VariableNames, string(properties(obj)));
+            end
+            
+            for jprop = props(:)'
+                try obj.(jprop{:}) = tbl.(jprop{:}); end %#ok<TRYNC>
+            end
+        end
+    end
+end

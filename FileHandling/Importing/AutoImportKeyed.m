@@ -41,7 +41,7 @@ classdef AutoImportKeyed
     
     methods (Access = private)
         function self = getFullName(self)
-            if Fcn.isFull(self.FileName.fileName)
+            if Val.isFull(self.FileName.fileName)
                 self.folders = [self.FileName.topPath, self.FileName.folders];
                 self.fileName = self.FileName.fileName;
             else

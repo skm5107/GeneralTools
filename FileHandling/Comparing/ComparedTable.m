@@ -48,7 +48,7 @@ classdef ComparedTable
         end
         
         function [isMatch, nonMatches] = diffTable_match(self, diffTable)
-            [hasDiff, diffRC] = Log.diffTable_check(diffTable);
+            [hasDiff, diffRC] = Diff.table(diffTable);
             nestNames = strrep(diffTable.Properties.VariableNames, Tbl.flatDivider, Tbl.nestDivider);
             
             nonMatches = table;            
