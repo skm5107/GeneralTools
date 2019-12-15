@@ -24,6 +24,7 @@ classdef (HandleCompatible) multi < valuable
         
         function self = set.types(self, types)
             self.types = Arr.cellify(types, 1);
+            self.checkTypeconflicts();
         end
     end
     
@@ -36,8 +37,9 @@ classdef (HandleCompatible) multi < valuable
     end
     
     methods (Access = private)
-        inds = getSubs(self, request, checkType)
-        [tfStruct, structFld] = checkAsStruct(request, allowFlds)
+        checkTypeconflicts(self)
+        [prop, requests] = reference(self, requests)
+        inds = makeSubs(self, request)
     end
     
     methods (Static)

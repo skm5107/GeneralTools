@@ -1,15 +1,19 @@
-function ref = getSubs(self, req, checkType)
-    if all(isnumeric(checkType)) || (all(Str.ischar(checkType)) && all(checkType == ":"))
-        ref = req(1:end);
-    else
-        reqtypes = getReqTypes(req);
+function req = makeSubs(self, req)
+    isNum = cellfun(@checkNumeric, Arr.cellify(req.subs));
+    if ~isNum
+        reqtypes = preProc_reqs(req);
         ind = cellfun(@(jtype) ismatch(jtype, reqtypes), self.types);
-        ref.type = '()';
-        ref.subs = {find(ind)};
+        req.subs = {find(ind)};
     end
 end
 
-function reqtypes = getReqTypes(req)
+function tf = checkNumeric(sub)
+    isNumber = isnumeric(sub);
+    isAll = isequaln(sub, ":");
+    tf = all(isNumber| isAll);
+end
+
+function reqtypes = preProc_reqs(req)
     if ischar(req.subs)
         reqtypes = {req.subs};
     elseif ~iscell(req.subs{:})
