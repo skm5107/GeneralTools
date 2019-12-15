@@ -1,7 +1,7 @@
 classdef Arr
     methods (Static)
         content = uncell(celled)
-        celled = cellify(content)
+        celled = cellify(content, varargin)
         
         [flat, origShape] = flatten(arr, horzORvert)
         padded = pad(arr, sz, padVal, leftORright)

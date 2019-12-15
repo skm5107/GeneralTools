@@ -21,7 +21,7 @@ classdef UTestmulti < UTest
     end
     
     %% Referencing
-    properties (Constant, Access = private)
+    properties (Constant)%, Access = private)
         values = values_load()
         types = {"primary", ["given" "first"], {"given" {"middle" "mid"}}, categorical("family")}
         name = multi(UTestmulti.values, UTestmulti.types)
@@ -178,6 +178,21 @@ classdef UTestmulti < UTest
             tester.verifyEqual(temp.values([1,2]), {"Replaced Name", "Replaced Name"});
         end
         
+        function repl_dot(tester)
+            temp = UTestmulti.name;
+            temp.primary = "Dot Replaced";
+            tester.verifyEqual(temp.values{1}, "Dot Replaced");
+            tester.verifyEqual(temp.values{2}, UTestmulti.name{2});
+        end
+        
+        function repl_lookup(tester)
+            temp = UTestmulti.name;
+            temp("given") = "Lookup Replaced";
+            expect = num2cell(repmat("Lookup Replaced", [1,2]));
+            tester.verifyEqual(temp.values(2:3), expect);
+            tester.verifyEqual(temp.values{4}, UTestmulti.name{4});
+        end        
+        
         function repls_all(tester)
             temp = UTestmulti.name;
             temp(:) = "Replaced Name";
@@ -272,13 +287,69 @@ classdef UTestmulti < UTest
         end
     end
     
+    %% Other Methods
+    methods (Test)
+        function init_check(tester)
+            tester.verifySize(multi, [1,0])
+        end
+        
+        function len_check(tester)
+            ex = multi([1, 2, 3]);
+            tester.verifyLength(ex, 3);
+        end
+        
+        function sz_check(tester)
+            ex = multi([1, 2, 3]);
+            tester.verifySize(ex, [1,3]);
+        end  
+        
+        function empty_check(tester)
+            tester.verifyEmpty(multi);
+        end
+    end
+    
     %% Static Methods
     methods (Test)
-        function class_check(tester)
-            number = {"2" ["3" "4"]};
-            output = multi.classCheck(number, "double");
-            tester.verifyClass([output{:}], "double");
+        function all_type(tester)
+            typed = multi.allType(["A" "B"], "this type");
+            tester.verifyEqual(typed.values, {"A" "B"});
+            tester.verifyEqual(typed.types, {"this type" "this type"});
         end
+        
+        function multify_no(tester)
+            m = multi(["A" "B"]);
+            tester.verifyEqual(multi.multify(m), m);
+        end
+        
+        function multify_yes(tester)
+            m = ["A" "B"];
+            tester.verifyEqual(multi.multify(m), multi(m));
+        end
+        
+        function class_check(tester)
+            strs = {"string" ["string2" "string3"]};
+            strChecked = multi.classCheck(strs, "string", true);
+            tester.verifyEqual(strChecked.values, strs);
+            tester.verifyEqual(strChecked.types, {missing missing});
+        end
+        
+        function class_change(tester)
+            nums = {"2" ["3" "4"]};
+            numChecked = multi.classCheck(nums, "double");
+            tester.verifyClass(Arr.uncell(numChecked(:)), "double");
+            tester.verifyEqual(numChecked.types, {missing missing});
+        end
+        
+        function class_yesChange(tester)
+            nums = {"2" ["3" "4"]};
+            numChecked = multi.classCheck(nums, "double", true);
+            tester.verifyClass(Arr.uncell(numChecked(:)), "double");
+            tester.verifyEqual(numChecked.types, {missing missing});
+        end        
+        
+        function class_noChange(tester)
+            tester.verifyError(@clsConvert, 'multi:Class')
+        end        
         
         function class_error(tester)
             tester.verifyError(@clsErr, 'MATLAB:invalidConversion')
@@ -294,6 +365,11 @@ function values = values_load()
     values = {primary, first, middle, last};
 end
 
-function out = clsErr()
-    out = multi.classCheck({"2" ["3" "4"]}, "struct");
+function numChecked = clsConvert
+    nums = {"2" ["3" "4"]};
+    numChecked = multi.classCheck(nums, "double", false);
+end
+
+function classChecked = clsErr()
+    classChecked = multi.classCheck({"2" ["3" "4"]}, "struct");
 end
