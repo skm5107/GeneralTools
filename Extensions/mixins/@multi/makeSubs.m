@@ -3,7 +3,7 @@ function req = makeSubs(self, req)
     if ~isNum
         reqtypes = preProc_reqs(req);
         ind = cellfun(@(jtype) ismatch(jtype, reqtypes), self.types);
-        req.subs = {find(ind)};
+        req = postProc_reqs(req, ind);
     end
 end
 
@@ -21,6 +21,13 @@ function reqtypes = preProc_reqs(req)
     else
         reqtypes = req.subs;
     end
+end
+
+function req = postProc_reqs(req, ind)
+    if req.type == "."
+        req.type = '{}';
+    end
+    req.subs = {find(ind)};
 end
 
 function tf = ismatch(selftypes, reqtypes)

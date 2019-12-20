@@ -1,5 +1,4 @@
 classdef Math
-    %General short mathematical methods
     methods (Static)
         function buffered = buffer(bounds, buff)
             buffered(1) = min(bounds) - buff;
@@ -15,6 +14,11 @@ classdef Math
             value = stepped / step_inc;
             value(isnan(value)) = 0;
             rolling = cumsum(value, sum_dist / step_inc);
+        end
+        
+        function [quot, modulo] = modDiv(dividend, divisor)
+            modulo = mod(dividend, divisor);
+            quot = floor(dividend/divisor);
         end
     end
 end

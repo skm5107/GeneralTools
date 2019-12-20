@@ -1,6 +1,6 @@
 classdef Convert
     properties (Constant, Access = private)
-        topPath = fullfile("GeneralTools", "Mathematics", "Units")
+        topPath = fileparts(mfilename('fullpath'))
         keyPath = fullfile(Convert.topPath, "unit conversion.csv")
         key = Convert.key_load()
         unitExpr = join(string(Convert.key.unitA), "|")
