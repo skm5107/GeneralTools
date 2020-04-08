@@ -37,7 +37,7 @@ classdef Formatter
                 otherwise
                   error("invalid typeSpec character")
             end
-            out = cellfun(hndl, self.raw);
+            out = cellfun(@(raw) hndl(raw, self.FormSpec.styleSpec), self.raw);
         end
     end
 end
