@@ -1,10 +1,11 @@
-function out = setMeta(self, Heads)
-    out = self.raw;
-    out.Properties = Heads.Props;
-    out(Heads.delRows, :) = [];
+function metad = setMeta(self, Heads)
+    metad = self.raw;
+    metad.Properties = Heads.Props;
+    metad(Heads.delRows, :) = [];
     
-    for icol = 1:width(out)
-        varName = out.Properties.VariableNames{icol};
-        out.(varName) = Formatter(out.(varName), Heads.FormSpec(icol)).run;
+    for icol = 1:width(metad)
+        varName = metad.Properties.VariableNames{icol};
+        varSpec = Heads.FormSpec(icol);
+        metad.(varName) = Formatter(metad.(varName), varSpec).run;
     end
 end

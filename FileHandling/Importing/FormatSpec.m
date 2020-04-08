@@ -1,6 +1,6 @@
 classdef FormatSpec
     properties (GetAccess = private)
-        rawSpec string
+        rawSpec (1, :) string
     end
     
     properties (Dependent)

@@ -1,11 +1,11 @@
 function Heads = getHeaders(self)
     if ismissing(self.pathHead)
-        isInSitu = true;
+        isIncluded = true;
         rawHead = self.raw;
     else
-        isInSitu = false;
+        isIncluded = false;
         rawHead = readtable(self.pathHead, 'TextType', 'string');
     end
     
-    Heads = CSVHeader(rawHead, isInSitu).run;
+    Heads = HeaderInfo(rawHead, isIncluded).run;
 end
