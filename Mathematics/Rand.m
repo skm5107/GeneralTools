@@ -1,6 +1,17 @@
 classdef Rand
     % Static methods for randomization
     methods (Static)
+        function tf = log(frac_true)
+            if nargin < 1
+                frac_true = 0.5;
+            end
+            if rand() < frac_true
+                tf = true;
+            else
+                tf = false;
+            end
+        end
+        
         function selection = select(choices, num)
             scramble = randperm(length(choices));
             selection = choices(scramble(1:num));

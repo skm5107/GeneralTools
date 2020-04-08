@@ -6,7 +6,7 @@ classdef Log
         tfs = contains(arr, includes)
     end
     
-    methods (Static)
+    methods (Static)        
         val = firstNotEmpty_select(varargin)
         [indsPass_ind, indsPass_tf] = indices_choose(acceptableInds, selectionsOfAcceptableSet)
         

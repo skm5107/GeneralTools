@@ -6,46 +6,26 @@ classdef UTestmulti < UTest
     end
         
     properties (Constant, TestParameter, Hidden)
-        ref_num1 = {"2" "4" "1:end-1" ":"}
-        ref_num2 = UTestmulti.ref_num1
-        ref_num3 = UTestmulti.ref_num1
-        ref_brack = {{'{}' '{}' ''}, {'{}' '{}' '()'}}
-        ref_typ = {"num", "cell", "char", "notUsed"}
+        num_refs = {"(1,1:2)", "{1,3}(4)", ".num(3)"}
+        type_refs = {'("cell")', "notRealType"}
     end
     
     methods (Test)
-        function ref_nums(tester, ref_num1, ref_num2, ref_num3, ref_brack)
-            caller = caller_make(ref_num1, ref_num2, ref_num3, ref_brack);
-            [isErr, exp] = values_expect(caller);
+        function ref_nums(tester, num_refs)
+            [isErr, exp] = values_expect(num_refs);
             if isErr
-                tester.verifyError(@() callMulti(caller), exp, char(caller));
+                tester.verifyError(@() callMulti(caller), exp, char(num_refs));
             else
-                actual = callMulti(caller);
-                tester.verifyEqual(actual, exp, char(caller));
+                actual = callMulti(num_refs);
+                tester.verifyEqual(actual, exp, char(num_refs));
             end
         end
     end
 end
 
-
-function caller = caller_make(ref_num1, ref_num2, ref_num3, ref_brack)
-    call1 = ref_make(ref_num1, ref_brack{1});
-    call2 = ref_make(ref_num2, ref_brack{2});
-    call3 = ref_make(ref_num3, ref_brack{3});
-    caller = call1 + call2 + call3;
-end
-    
-function call = ref_make(ref_num, ref_brack)
-    if ~isempty(ref_brack)
-        call = ref_brack(1) + ref_num + ref_brack(2);
-    else
-        call = "";
-    end
-end
-
-function [isErr, exp] = values_expect(caller)
+function [isErr, exp] = values_expect(num_refs)
     try 
-        exp = eval("UTestmulti.nested.values" + caller);
+        exp = eval("UTestmulti.nested.values" + num_refs);
         isErr = false;
     catch except
         exp = except.identifier;

@@ -2,7 +2,7 @@ function inside = getInside(txt, btwn_chars)
     if ismissing(txt)
         inside = "";
     else
-        inside = cellfun(@(itxt) doSingle(itxt, btwn_chars), txt);
+        inside = cellfun(@(itxt) doSingle(itxt, string(btwn_chars)), txt);
     end
 end
 

@@ -2,7 +2,8 @@ function dats = read(strs, varargin)
     if all(class(strs) == "datetime")
         dats = strs;
     else
-        dats = cellfun(@(jstr) doSingle(strs, varargin{:}), strs);
+        strs = Arr.cellify(strs);
+        dats = cellfun(@(jstr) doSingle(jstr, varargin{:}), strs);
     end
 end
 
