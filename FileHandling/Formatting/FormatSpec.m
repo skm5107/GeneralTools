@@ -26,6 +26,7 @@ classdef FormatSpec
         function typeSpec = get.typeSpec(self)
             typeSpec = Str.getOutside(self.rawSpec, self.splitBrack);
             typeSpec = Str.getOutside(typeSpec, self.styleBrack);
+            typeSpec = strip(typeSpec);
         end
         
         function splitSpec = get.splitSpec(self)

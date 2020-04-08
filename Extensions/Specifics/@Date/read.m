@@ -8,7 +8,9 @@ function dats = read(strs, varargin)
 end
 
 function dat = doSingle(str, varargin)
-    if ~Val.isFull(str) || ismember(str, ["NAT", "NaT", "nat", "", "[]", "NaN", "nan", "NAN", "#", "." "missing" "empty"])
+    if specifiesFormat(varargin)
+        dat = datetime(str, varargin{:});
+    elseif ~Val.isFull(str) || ismember(lower(str), ["nat", "nan", "[]", "#", ".", "", " ", "missing" "empty"])
         dat = NaT;
     else
         frmt = recognize_format(str);
@@ -69,4 +71,9 @@ function frmt = recYear(orig)
     else
         frmt = "yy";
     end
+end
+
+function doesSpecify = specifiesFormat(varargin)
+    doesSpecify = cellfun(@(ins) isequaln(ins, "InputFormat"), varargin{:});
+    doesSpecify = any(doesSpecify);
 end
