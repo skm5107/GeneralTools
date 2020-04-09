@@ -1,7 +1,8 @@
 classdef FormattedCSV < handle
     properties
-        pathCSV string = missing
-        pathHead string = missing
+        pathCSV (1,1) string = missing
+        pathHead (1,1) string = missing
+        skipLines (1,1) double = 0
     end
     
     properties (SetAccess = private)
@@ -13,21 +14,26 @@ classdef FormattedCSV < handle
     end
     
     methods
-        function self = FormattedCSV(pathCSV, pathHead)
+        function self = FormattedCSV(pathCSV, pathHead, skipLines)
             if nargin > 0
                 self.pathCSV = pathCSV;
             end
-            if nargin > 1
+            if nargin > 1 && Val.isFull(pathHead)
                 self.pathHead = pathHead;
+            end
+            if nargin > 2
+                self.skipLines = skipLines;
             end
         end
         
-        function self = run(self)
-            csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', 'PreserveVariableNames', true);
+        function [out, self] = run(self)
+            csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', ...
+                'PreserveVariableNames', true, 'HeaderLines', self.skipLines);
             self.raw = self.delExtra(csv);
             Heads = self.getHeaders();
             self.out = self.setMeta(Heads);
-            self.out = self.nestVars();
+            self.out = NestTable(self.out).run;
+            out = self.out;
         end
     end
     

@@ -3,14 +3,10 @@ classdef NestTable
         raw
     end
     
-    properties (SetAccess = private)
-        out
-    end
-    
-    properties %(Access = private)
+    properties (Access = private)
         rawVars
-        parsedVars
-        rawTops
+        rawInds
+        uniTops
     end
     
     properties (Constant, Access = private)
@@ -24,23 +20,22 @@ classdef NestTable
             end
         end
         
-        function out = run(self)
-            self.rawVars = self.raw.Properties.VariableNames;
-            self.parsedVars = cellfun(@(jvar) split(jvar, NestTable.nestDiv), self.rawVars, 'uni', 0);
-            
-            self.rawTops = self.getTops();
-            [uTops, ~, rawInds] = unique(self.rawTops);
-            
-            self.out = self.raw;
-            for icol = length(uTops):-1:1
-                jraws = icol == rawInds;
-                self = self.mergeVars(uTops(icol), jraws);
+        function [out, self] = run(self)
+            self = self.readRawVars();
+            out = self.raw;
+            for icol = length(self.uniTops):-1:1
+                [out, flatCol] = self.mergeEachCol(out, icol);
+                out = NestTable.subnestLoop(out, flatCol);
             end
-            out = self.out;
         end
     end
     
     methods (Access = private)
-        topvars = getTops(vars)
+        self = readRawVars(self)
+        [out, flatCol] = mergeEachCol(self, out, icol)
+    end
+    
+    methods (Static, Access = private)
+        out = subnestLoop(out, loc)
     end
 end
