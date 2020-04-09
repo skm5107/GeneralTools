@@ -1,4 +1,4 @@
-separate_var,separated_cat,log_subname,sep_tbl,SepDate.clock
+separate_var,separated_cat,log_subname,sep_tbl,SEPdate.clock
 q{;},C,L{\},r,D (dd-MM-yyyy) {|}
 #,#,#,minutes,datetime
 the associated data are semicolon-separated strings,the associated data are categoricals,the associated data are sets of logicals,the associated data are strings within cells,the associated data are formatted dates
