@@ -23,16 +23,18 @@ classdef FormattedCSV < handle
         end
         
         function self = run(self)
-            csv = readtable(self.pathCSV, 'TextType', 'string');
+            csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', 'PreserveVariableNames', true);
             self.raw = self.delExtra(csv);
             Heads = self.getHeaders();
             self.out = self.setMeta(Heads);
+            self.out = self.nestVars();
         end
     end
     
     methods (Access = private)
         Heads = getHeaders(self)
         out = setMeta(self, rawHead)
+        out = nestVars(self)
     end
     
     methods (Static, Access = private)

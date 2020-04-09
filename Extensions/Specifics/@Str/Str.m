@@ -27,6 +27,8 @@ classdef Str
         out = eraseAny(orig, dels)
         str = eraseBtwn(str, startStr, endStr, boundaries)
         
+        [str, tf] = eraseStart(str, match)
+        
         function [erased, tf] = eraseIf(str, match)
             erased = erase(str, match);
             tf = cellfun(@Str.length, erased) < cellfun(@Str.length, str);
