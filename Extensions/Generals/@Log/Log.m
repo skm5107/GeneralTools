@@ -4,6 +4,7 @@ classdef Log
         rows_tf = isequalnByRow(rowsA, rowsB)
         tf = anyequaln(value, anyOfvalues)
         tfs = contains(arr, includes)
+        [matches, inds] = allany(optsList, rules)
     end
     
     methods (Static)        
