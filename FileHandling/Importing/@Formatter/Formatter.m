@@ -20,13 +20,17 @@ classdef Formatter
         end
         
         function out = run(self)
-            self.mid = self.formatSplit();
-            out = self.formatType();
+            [self.mid, wasSplit] = self.formatSplit();
+            out = self.formatType(wasSplit);
         end
     end
     
     methods (Access = private)
-        out = formatSplit(self)
-        out = formatType(self)
-    end    
+        [out, wasSplit] = formatSplit(self)
+        out = formatType(self, wasSplit)
+    end
+    
+    methods (Static, Access = private)
+        key = loadKey()
+    end
 end

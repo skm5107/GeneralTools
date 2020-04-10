@@ -21,17 +21,18 @@ classdef NestTable
         end
         
         function [out, self] = run(self)
-            self = self.readRawVars();
             out = self.raw;
+            self = self.readRawVars(out);
             for icol = length(self.uniTops):-1:1
                 [out, flatCol] = self.mergeEachCol(out, icol);
+                self = self.readRawVars(out);
                 out = NestTable.subnestLoop(out, flatCol);
             end
         end
     end
     
     methods (Access = private)
-        self = readRawVars(self)
+        self = readRawVars(self, out)
         [out, flatCol] = mergeEachCol(self, out, icol)
     end
     

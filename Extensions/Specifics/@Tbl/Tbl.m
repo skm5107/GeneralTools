@@ -26,6 +26,7 @@ classdef Tbl
         tbl = unique(tbl, keepFirst)
         [tf, val] = isVar(tbl, varName)
         trans = transpose(raw)
+        trans = invertMeta(raw)
         empty = emptyCols(hgt, varNames, varTypes)
         orig = defaultVars(orig)        
     end  

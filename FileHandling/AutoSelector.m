@@ -4,6 +4,10 @@ classdef AutoSelector
         requests
     end
     
+    properties (SetAccess = private)
+        matchPaths
+    end
+    
     properties (Access = private)
         map
         constFiles
@@ -11,6 +15,7 @@ classdef AutoSelector
     
     properties (Hidden)
         Dir (1,1) Directory = Directory()
+        Loader (1,1) FormattedCSV = FormattedCSV()
         descDiv (1,1) string = "_"
     end
     
@@ -24,11 +29,16 @@ classdef AutoSelector
             end
         end
         
-        function [matches, self] = run(self)
+        function self = select(self)
             self.map = self.Dir.run(); 
             self.constFiles = self.extractDescs();
             [~, matchInds] = Log.allany(self.constFiles, self.requests);
-            matches = self.map.fullPath(matchInds);
+            self.matchPaths = self.map.fullPath(matchInds);
+        end
+        
+        function out = load(self)
+            raws = cellfun(@(ipath) self.loadEach(ipath), num2cell(self.matchPaths), 'uni', 0);
+            out = vertcat(raws{:});
         end
     end
     
@@ -42,6 +52,10 @@ classdef AutoSelector
     methods (Access = private)
         function constFiles = extractDescs(self)
             constFiles = cellfun(@(ifile) regexp(ifile, self.descDiv, "split"), self.map.filename, 'uni', 0);
+        end
+        function raw = loadEach(self, ipath)
+            self.Loader.pathCSV = ipath;
+            raw = self.Loader.run();
         end
     end
 end

@@ -1,0 +1,10 @@
+varNames,value,formSpec,varUnits,varDescs
+q,q,q,q,q
+#,#,#,#,#
+Name of constant,Value of constant,Datatype,Units for constant,Description of constant
+List of example constants,#,#,#,#
+meat.beef.qty,10,d,each,Quantity of beef portions
+meat.beef.calorie_ea,225,d,calories,Calories in beef portion
+veg.qty,3,d,each,Quantity of vegetable portions
+veg.wgt_ea,945,d,grams,Weight of vegetable portion
+meat.rule,0,L,,Include or do not include meat

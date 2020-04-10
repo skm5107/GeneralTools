@@ -1,7 +1,7 @@
 function [out, flatCol] = mergeEachCol(self, out, icol)
     iname = self.uniTops{icol};
     iraws = find(icol == self.rawInds);
-    if contains(out(:, iraws).Properties.VariableNames, NestTable.nestDiv)
+    if hasNestDiv(out(:, iraws))
         out = mergevars(out, iraws, 'NewVariableName', iname, 'MergeAsTable', true);
         [out, flatCol] = cleanSubNames(out, iname, iraws(1));
     else
@@ -24,4 +24,9 @@ function [subTable, fullyNested] = renameVars(subTable, iname)
     subTable.Properties.VariableNames = newNames;
     subTable = table(subTable);
     subTable.Properties.VariableNames = {iname};        
+end
+
+function hasNest = hasNestDiv(cols)
+    varNames = cols.Properties.VariableNames;
+    hasNest = any(contains(varNames, NestTable.nestDiv));
 end

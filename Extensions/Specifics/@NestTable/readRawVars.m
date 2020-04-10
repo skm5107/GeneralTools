@@ -1,5 +1,5 @@
-function self = readRawVars(self)
-    self.rawVars = self.raw.Properties.VariableNames;
+function self = readRawVars(self, out)
+    self.rawVars = out.Properties.VariableNames;
     parsedVars = cellfun(@parser, self.rawVars, 'uni', 0);
     [self.uniTops, self.rawInds] = getTops(parsedVars);
 end
@@ -11,5 +11,5 @@ end
 function [uniTops, rawInds] = getTops(parsedVars)
     topInds = num2cell(1:length(parsedVars));
     topVars = cellfun(@(itop) parsedVars{itop}(1), topInds);
-    [uniTops, ~, rawInds] = unique(topVars);
+    [uniTops, ~, rawInds] = unique(topVars, 'stable');
 end

@@ -1,0 +1,9 @@
+varNames,value,formSpec,varUnits,varDescs
+q,q,q,q,q
+#,#,#,#,#
+Name of constant,Value of constant,Datatype,Units for constant,Description of constant
+List of example constants,#,#,#,#
+meat.pork.qty,2,d,each,Quantity of pork portions
+meat.pork.calorie_ea,105,d,calories,Calories in pork porkion
+sugar.qty,30,d,each,Quantity of sugar portions
+sugar.wgt_ea,923,d,grams,Weight of sugar porkion
