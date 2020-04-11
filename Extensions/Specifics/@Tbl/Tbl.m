@@ -21,13 +21,19 @@ classdef Tbl
         function new = rowfun(fcn_hndl, orig, varargin)
             hgt = num2cell(1:size(orig, 1));
             new = cellfun(@(irow) fcn_hndl(orig(irow, :)), hgt, varargin{:});
-        end        
+        end
         
-        tbl = unique(tbl, keepFirst)
         [tf, val] = isVar(tbl, varName)
+        tbl = unique(tbl, keepFirst)
         trans = transpose(raw)
-        trans = invertMeta(raw)
+        
         empty = emptyCols(hgt, varNames, varTypes)
-        orig = defaultVars(orig)        
+        orig = defaultVars(orig)
+        
+        trans = invertMeta(raw)
+        celled = meta2cell(orig)
+        celled = cell2meta(orig)
+        
+        [reqTbl, reqVal] = lookup(tbl, matchVal, matchCol, reqCol)
     end  
 end

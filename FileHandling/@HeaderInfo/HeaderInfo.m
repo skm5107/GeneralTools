@@ -1,5 +1,5 @@
 classdef HeaderInfo < handle
-    properties (GetAccess = private)
+    properties (Hidden)
         header
         iswData (1,1) logical = true
     end

@@ -9,6 +9,7 @@ classdef Arr
         [dim, val] = getDim(input, minORmax)
         
         setted = appendNoEmpty(current, new)
+        [isSame, diff] = cellcomp(old, new, tolPos, tolNeg)
         
         function varargout = deal(arr)
             ascells = Arr.cellify(arr);

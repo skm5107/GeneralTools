@@ -1,5 +1,5 @@
 classdef Directory
-    properties (GetAccess = private)
+    properties (Hidden)
         path (1,1) string
         maxsubLvl (1,1) double = 10
     end

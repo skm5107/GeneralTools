@@ -1,5 +1,5 @@
 classdef NestTable
-    properties (GetAccess = private)
+    properties (Hidden)
         raw
     end
     

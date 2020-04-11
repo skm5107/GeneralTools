@@ -1,5 +1,6 @@
 function out = formatType(self, wasSplit)
-    fcnHndl = Frmt.findFcn(self.FormSpec.typeSpec);
+    fcnHndl = Tbl.lookup(self.FormSpec.typeSpec, "x", "typeID", "convertHndl");
+    fcnHndl = Arr.uncell(fcnHndl);
     if wasSplit
         out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec), self.mid, 'uni', false);
     else

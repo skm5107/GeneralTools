@@ -1,5 +1,5 @@
 classdef FormatSpec
-    properties (GetAccess = private)
+    properties (Hidden)
         rawSpec (1, :) string
     end
     

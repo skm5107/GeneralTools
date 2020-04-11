@@ -1,8 +1,8 @@
-function fcnHndl = findFcn(typeSpec)
+function fcnHndl = id2convert(typeSpec)
     hgt = 1:size(Frmt.key, 1);
     matchInd = cellfun(@(iid) compare(Frmt.key.typeID{iid}, typeSpec), num2cell(hgt));
     assert(sum(matchInd) == 1, "Frmt:typeID", "invalid typeSpec character")
-    fcnHndl = Frmt.key.fcnHndl{matchInd};
+    fcnHndl = Frmt.key.convertHndl{matchInd};
 end
 
 function isMatch = compare(itype, typeSpec)

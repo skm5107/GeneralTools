@@ -1,5 +1,5 @@
 classdef Formatter
-    properties (GetAccess = private)
+    properties (Hidden)
         raw
         FormSpec
     end

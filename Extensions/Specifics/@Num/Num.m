@@ -6,6 +6,10 @@ classdef Num
             tf_vect = mod(nums, 2) == 0;
             tf_all = all(tf_vect);
         end
+        
+        function val = makeNeg(val)
+            val(isnumeric(val)) = -1*val;
+        end
     end
     
     methods (Static)        

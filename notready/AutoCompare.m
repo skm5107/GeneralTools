@@ -1,5 +1,5 @@
 classdef AutoCompare
-    % Generate and print difference tables for a table of new and otld of filePaths.
+    % Generate and print difference tables for a table of new and old of filePaths.
     
     properties (GetAccess = protected)
         filePaths table

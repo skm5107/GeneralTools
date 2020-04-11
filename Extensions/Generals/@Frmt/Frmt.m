@@ -4,8 +4,7 @@ classdef Frmt
     end
         
     methods (Static)
-        fcnHndl = findFcn(typeSpec)
-        
+        formSpec = getSpec(tbl)
         [val, arg2] = str(raw, ~)
         [val, arg2] = num(raw, ~)
         [val, arg2] = cat(raw, ~)

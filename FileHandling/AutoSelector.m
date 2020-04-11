@@ -1,5 +1,5 @@
 classdef AutoSelector
-    properties (GetAccess = private)
+    properties (Hidden)
         topPath (1,1) string
         requests
     end
