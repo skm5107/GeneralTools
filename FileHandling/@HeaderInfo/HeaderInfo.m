@@ -2,23 +2,21 @@ classdef HeaderInfo < handle
     properties (Hidden)
         header
         iswData (1,1) logical = true
+        delChar (1,1) string = "#"
+        key = HeaderInfo.loadKey()
     end
     
     properties (SetAccess = private)
         Props
-        FormSpec
+        FormSpec (1,1) FormatSpec
+    end
+    
+    properties (Access = private)
+        convertHndl
     end
     
     properties (Dependent)
         delRows
-    end
-    
-    properties (Hidden)
-        delChar (1,1) string = "#"
-        formatRow (1,1) double = 1
-        unitRow (1,1) double = 2
-        vardescRow (1,1) double = 3
-        tbldescRow (1,1) double = 4
     end
     
     methods
@@ -30,38 +28,22 @@ classdef HeaderInfo < handle
                 self.iswData = iswData;
             end
             if nargin > 2
-                headerRows = num2cell([headerRows, nan(1, 4-length(headerRows))]);
-                [self.formatRow, self.unitRow, self.vardescRow, self.tbldescRow] = deal(headerRows{:});
+                self.key.csvRow(1:length(headerRows)) = headerRows;
             end
         end
         
-        function self = run(self)
-            if ~isnan(self.formatRow)
-                self.FormSpec = FormatSpec(self.header{self.formatRow,:});
-            end
-            self = self.setTblProp("VariableUnits", self.unitRow);
-            self = self.setTblProp("VariableDescriptions", self.vardescRow);
-            self = self.setTblDesc(self.tbldescRow);
-            self.Props = self.header.Properties;
-        end
-        
+        self = run(self)
+                
         function delRows = get.delRows(self)
             if self.iswData
-                delRows = [self.formatRow, self.unitRow, self.vardescRow, self.tbldescRow];
-                delRows(isnan(delRows)) = [];
+                delRows = self.key.csvRow;
             else
                 delRows = [];
             end
         end
     end
     
-    methods (Access = private)
-        header = setTblProp(self, propName, headerRow)
-        header = setTblDesc(self, headerRow)
-        
-        function rawRow = getRawHead(self, irow)
-            rawRow = string(self.header{irow, :});
-            rawRow = strrep(rawRow, self.delChar, "");
-        end
+    methods (Static, Access = private)
+        key = loadKey()
     end
 end

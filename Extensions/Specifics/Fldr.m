@@ -24,6 +24,17 @@ classdef Fldr
             [~, fileName, ext] = fileparts(fullPath);
             namewExt = string(strcat(fileName, ext));
         end
+        
+        function [ext, pathname] = checkext(filepath)
+            [path, name, ext] = fileparts(filepath);
+            ext = Str.eraseStart(ext, Fldr.extDiv);
+            pathname = fullfile(path, name);
+        end
+        
+        function filepath = changeext(filepath, ext)
+            [~, pathname] = Fldr.checkext(filepath);
+            filepath = pathname + Fldr.extDiv + ext;
+        end
     end
     
     methods (Static)

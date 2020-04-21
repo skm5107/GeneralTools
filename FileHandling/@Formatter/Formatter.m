@@ -29,8 +29,4 @@ classdef Formatter
         [out, wasSplit] = formatSplit(self)
         out = formatType(self, wasSplit)
     end
-    
-    methods (Static, Access = private)
-        key = loadKey()
-    end
 end

@@ -1,13 +1,14 @@
 function self = getHeaders(self)
-    if ismissing(self.pathHead)
-        isIncluded = true;
-        rawHead = self.raw;
-    else
-        isIncluded = false;
-        rawHead = readtable(self.pathHead, 'TextType', 'string', 'DatetimeType', 'text', ...
-            'PreserveVariableNames', true, 'HeaderLines', self.headSkipRows);
-    end
-    self.Heads.header = rawHead;
-    self.Heads.iswData = isIncluded;
+    [self.Heads.header, self.Heads.iswData] = loadRaw(self.raw, self.pathHead, self.headSkipRows);
     self.Heads = self.Heads.run;
+end
+
+function [raw, headerAboveRaw] = loadRaw(raw, pathHead, headSkipRows)
+    if ismissing(pathHead)
+        headerAboveRaw = true;
+    else
+        headerAboveRaw = false;
+        raw = readtable(pathHead, 'TextType', 'string', 'DatetimeType', 'text', ...
+            'PreserveVariableNames', true, 'HeaderLines', headSkipRows);
+    end
 end
