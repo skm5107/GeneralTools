@@ -19,7 +19,7 @@ classdef (HandleCompatible) multi < valuable
         function self = set.values(self, values)
             self.values = Arr.cellify(values, 1);
             len = length(self) - length(self.types); %#ok<*MCSUP>
-            self.types = Arr.pad(self.types, [1, len], {missing}, "right");
+            self.types = Arr.pad(self.types, [1, len], {missing});
         end
         
         function self = set.types(self, types)
@@ -29,8 +29,11 @@ classdef (HandleCompatible) multi < valuable
     end
     
     methods
+        function multiDims = numel(~, ~)
+            multiDims = 1;
+        end
         varargout = subsref(self, s)
-        self = subsasgn(self, s, b)
+        self = subsasgn(self, requests, new)
 
         self = horzcat(self, new)
         self = vertcat(self, new)

@@ -1,19 +1,22 @@
 function req = makeSubs(self, req)
-    isNum = cellfun(@checkNumeric, Arr.cellify(req.subs));
+    [isNum, ind] = cellfun(@checkNumeric, Arr.cellify(req.subs));
     if ~isNum
-        reqtypes = preProc_reqs(req);
+        reqtypes = preProc_types(req);
         ind = cellfun(@(jtype) ismatch(jtype, reqtypes), self.types);
-        req = postProc_reqs(req, ind);
     end
+    req = postProc_reqs(req, ind);
 end
 
-function tf = checkNumeric(sub)
+function [tf, sub] = checkNumeric(sub)
+    if islogical(sub)
+        sub = find(sub);
+    end
     isNumber = isnumeric(sub);
     isAll = isequaln(sub, ":");
     tf = all(isNumber| isAll);
 end
 
-function reqtypes = preProc_reqs(req)
+function reqtypes = preProc_types(req)
     if ischar(req.subs)
         reqtypes = {req.subs};
     elseif ~iscell(req.subs{:})
