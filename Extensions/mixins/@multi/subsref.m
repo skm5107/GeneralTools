@@ -1,11 +1,8 @@
 function varargout = subsref(self, requests)
     [propName, requests] = self.reference(requests);
     [requests, isCell] = uncell(requests);
-    varargout = subsref(self.(propName), requests);
-    if true
-        varargout = varargout';
-    end
-    varargout = recell({varargout}, isCell);
+    varargout = {subsref(self.(propName), requests)'};
+    varargout = recell(varargout, isCell);
     
     if ~isempty(varargout)
         Warn.warnIf(length(varargout) > max(1, nargout), "multi:deal", "multi not capturing all varargout matches")
