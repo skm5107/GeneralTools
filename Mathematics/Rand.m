@@ -1,5 +1,4 @@
 classdef Rand
-    % Static methods for randomization
     methods (Static)
         function tf = log(frac_true)
             if nargin < 1

@@ -1,10 +1,18 @@
-function req = makeSubs(self, req)
-    [isNum, ind] = cellfun(@checkNumeric, Arr.cellify(req.subs));
+function request = makeSubs(self, request)
+    request = log2num(request);    
+    [isNum, ind] = cellfun(@checkNumeric, Arr.cellify(Arr.uncell(request.subs)));
     if ~isNum
-        reqtypes = preProc_types(req);
+        reqtypes = preProc_types(request);
         ind = cellfun(@(jtype) ismatch(jtype, reqtypes), self.types);
     end
-    req = postProc_reqs(req, ind);
+    
+    request = postProc_reqs(request, ind);
+end
+
+function request = log2num(request)
+    if islogical(Arr.uncell(request.subs))
+        request.subs = {find(request.subs{:})};
+    end
 end
 
 function [tf, sub] = checkNumeric(sub)
@@ -30,7 +38,9 @@ function req = postProc_reqs(req, ind)
     if req.type == "."
         req.type = '{}';
     end
-    req.subs = {find(ind)};
+    if islogical(ind)
+        req.subs = {find(ind)};
+    end
 end
 
 function tf = ismatch(selftypes, reqtypes)

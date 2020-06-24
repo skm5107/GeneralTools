@@ -3,12 +3,12 @@ function [propName, requests] = reference(self, requests)
     requests = cellfun(@self.makeSubs, num2cell(requests));
 end
 
-function [prop, requests] = pickProp(self, requests)
+function [propName, requests] = pickProp(self, requests)
     if requests(1).type == "." && ismember(requests(1).subs, properties(self))
-        prop = requests(1).subs;
+        propName = requests(1).subs;
         requests = structRequest(requests);
     else
-        prop = 'values';
+        propName = 'values';
     end
 end
 
