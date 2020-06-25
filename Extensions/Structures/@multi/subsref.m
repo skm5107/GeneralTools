@@ -1,5 +1,4 @@
 function varargout = subsref(self, requests)
-    requests
     [propName, requests] = self.reference(requests);
     [requests, isCell] = square2paren(requests);
     varargout = {subsref(self.(propName), requests)'};

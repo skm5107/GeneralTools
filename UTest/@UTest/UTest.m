@@ -19,7 +19,7 @@ classdef UTest < matlab.unittest.TestCase
             end
         end
         function self = test(self)
-            runtests(self.testclassName) %%TODO: report code coverage               
+            runtests(self.testclassName); %%TODO: report code coverage               
         end
     end
     

@@ -34,11 +34,15 @@ classdef (HandleCompatible) multi < valuable
         end
         varargout = subsref(self, s)
         self = subsasgn(self, requests, new)
+        
+        function tf = eq(multiA, multiB)
+            tf = isequaln(multiA, multiB);
+        end
 
         self = horzcat(self, new)
         self = vertcat(self, new)
     end
-    
+        
     methods (Access = private)
         checkTypeconflicts(self)
         [prop, requests] = reference(self, requests)
