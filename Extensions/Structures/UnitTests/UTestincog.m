@@ -1,16 +1,16 @@
 classdef UTestincog < UTest
     properties (Constant, Hidden)
         xValues = ["exMiss", "exNormal", "exEmpty", "exAutoMiss"];
-        xTypes = {missing, "normalType", []};
+        xTypes = {missing, ["normalType1", "normalType2"], []};
         exMissing = multi(UTestincog.xValues, UTestincog.xTypes);
     end
     
     methods (Test)
         function miss_make(missMake)
-            exMissing = UTestincog.exMissing;
-            
-            missMake.assertEqual(exMissing.values, num2cell(UTestincog.xValues));
-            missMake.assertEqual(exMissing.types, [UTestincog.xTypes, {missing}]);
+            missMake.assertEqual(UTestincog.exMissing.values, ...
+                num2cell(UTestincog.xValues));
+            missMake.assertEqual(UTestincog.exMissing.types, ...
+                [UTestincog.xTypes, {missing}]);
         end
 
         function values_cat(valuesCat)
@@ -23,8 +23,7 @@ classdef UTestincog < UTest
         end
         
         function multi_cat(multiCat)
-            exMissing = multi(UTestincog.xValues, UTestincog.xTypes);
-            catMultis = [exMissing, exMissing];
+            catMultis = [UTestincog.exMissing, UTestincog.exMissing];
             
             multiCat.assertEqual(catMultis.values, ...
                 num2cell([UTestincog.xValues, UTestincog.xValues]));
@@ -33,14 +32,13 @@ classdef UTestincog < UTest
         end
         
         function types_repl(replTypes)
-            repl = [UTestincog.exMissing, UTestincog.exMissing.values];
-            newV = "ThisIsNew";
-            repl.types(3:5) = newV;
-            
-            replTypes.assertEqual(repl.values, ...
-                num2cell([UTestincog.xValues, UTestincog.xValues]));
+            repl.types = UTestincog.xTypes;
+            repl.types{2} = "ThisIsNew";
+
+            replTypes.assertEqual(UTestincog.exMissing.values, ...
+                num2cell(UTestincog.xValues));
             replTypes.assertEqual(repl.types, ...
-                {missing, "normalType", newV,  newV,  newV, missing, missing, missing});
+                {missing, "ThisIsNew", []});
         end
     end
     
@@ -52,7 +50,8 @@ classdef UTestincog < UTest
     methods (Test)
         function name_make(nameMake)
             name = multi(UTestincog.nValues, UTestincog.nTypes);
-            
+            name.types
+            UTestincog.nTypes
             nameMake.assertEqual(name.values, UTestincog.nValues);
             nameMake.assertEqual(name.types, UTestincog.nTypes);
         end

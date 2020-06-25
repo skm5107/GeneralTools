@@ -1,6 +1,7 @@
 function varargout = subsref(self, requests)
+    requests
     [propName, requests] = self.reference(requests);
-    [requests, isCell] = uncell(requests);
+    [requests, isCell] = square2paren(requests);
     varargout = {subsref(self.(propName), requests)'};
     varargout = recell(varargout, isCell);
     
@@ -11,9 +12,9 @@ function varargout = subsref(self, requests)
     end
 end
 
-function [requests, isCell] = uncell(requests)
-    if requests.type == '{}' %#ok<BDSCA>
-        requests.type = '()';
+function [requests, isCell] = square2paren(requests)
+    if requests.type == "{}"
+        requests.type = "()";
         isCell = true;
     else
         isCell = false;
