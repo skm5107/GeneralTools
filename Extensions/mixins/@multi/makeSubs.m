@@ -2,8 +2,8 @@ function request = makeSubs(self, request)
     request = log2num(request);    
     [isNum, ind] = cellfun(@checkNumeric, Arr.cellify(Arr.uncell(request.subs)));
     if ~isNum
-        reqtypes = preProc_types(request);
-        ind = cellfun(@(jtype) ismatch(jtype, reqtypes), self.types);
+        reqlabels = preProc_labels(request);
+        ind = cellfun(@(jlabel) ismatch(jlabel, reqlabels), self.labels);
     end
     
     request = postProc_reqs(request, ind);
@@ -24,13 +24,13 @@ function [tf, sub] = checkNumeric(sub)
     tf = all(isNumber| isAll);
 end
 
-function reqtypes = preProc_types(req)
+function reqlabels = preProc_labels(req)
     if ischar(req.subs)
-        reqtypes = {req.subs};
+        reqlabels = {req.subs};
     elseif ~iscell(req.subs{:})
-        reqtypes = num2cell(req.subs{:});
+        reqlabels = num2cell(req.subs{:});
     else
-        reqtypes = req.subs;
+        reqlabels = req.subs;
     end
 end
 
@@ -43,8 +43,8 @@ function req = postProc_reqs(req, ind)
     end
 end
 
-function tf = ismatch(selftypes, reqtypes)
-    selftypes = Arr.cellify(selftypes);
-    tf = cellfun(@(jtype) any(Log.anyequaln(jtype, reqtypes)), selftypes);
+function tf = ismatch(selflabels, reqlabels)
+    selflabels = Arr.cellify(selflabels);
+    tf = cellfun(@(jlabel) any(Log.anyequaln(jlabel, reqlabels)), selflabels);
     tf = any(tf);
 end
