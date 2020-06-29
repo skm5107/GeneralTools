@@ -1,6 +1,7 @@
 function request = makeSubs(self, request)
     request = log2num(request);    
     [isNum, ind] = cellfun(@checkNumeric, Arr.cellify(Arr.uncell(request.subs)));
+    
     if ~isNum
         reqlabels = preProc_labels(request);
         ind = cellfun(@(jlabel) ismatch(jlabel, reqlabels), self.labels);
@@ -16,9 +17,6 @@ function request = log2num(request)
 end
 
 function [tf, sub] = checkNumeric(sub)
-    if islogical(sub)
-        sub = find(sub);
-    end
     isNumber = isnumeric(sub);
     isAll = isequaln(sub, ":");
     tf = all(isNumber| isAll);
