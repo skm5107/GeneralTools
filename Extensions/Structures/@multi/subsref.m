@@ -1,7 +1,9 @@
 function varargout = subsref(self, requests)
     [propName, requests] = self.reference(requests);
     [requests, isCell] = square2paren(requests);
-    varargout = {subsref(self.(propName), requests)'};
+    
+    varargout = subsref(self.(propName), requests);
+    varargout = {reshape(varargout, 1, [])}; %address underlying transpose issue
     varargout = recell(varargout, isCell);
     
     if ~isempty(varargout)
