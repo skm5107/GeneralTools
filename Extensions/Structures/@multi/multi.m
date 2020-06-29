@@ -24,45 +24,37 @@ classdef (HandleCompatible) multi < valuable
         
         function self = set.labels(self, labels)
             self.labels = Arr.cellify(labels, 1);
-            self.checkLabelconflicts();
+            self.checkLabelConflicts();
         end
     end
     
     methods
         function multiDims = numel(~, ~)
             multiDims = 1;
-        end
-        varargout = subsref(self, s)
-        self = subsasgn(self, requests, new)
-        
+        end        
         function tf = eq(multiA, multiB)
             tf = isequaln(multiA, multiB);
         end
 
+        varargout = subsref(self, s)
+        self = subsasgn(self, requests, new)
+        
         self = horzcat(self, new)
         self = vertcat(self, new)
     end
         
     methods (Access = private)
-        checkTypeconflicts(self)
+        checkLabelConflicts(self)
         [prop, requests] = reference(self, requests)
         inds = makeSubs(self, request)
     end
     
     methods (Static)
-        out = classCheck(input, reqClass, tfConvert)
-        
-        function multed = allLabel(values, label)
-            labels = repmat(label, [1, length(values)]);
-            multed = multi(values, labels);
+        function out = missing()
+            out = multi(missing);
         end
-        
-        function multed = multify(input)
-            if ~ismember("multi", Obj.allclasses(input))
-                multed = multi(input);
-            else
-                multed = input;
-            end
-        end
+        out = propCheck(multiORvals, reqClass, minmaxDims, tfConvert)
+        multed = allLabel(values, label)
+        multed = multify(input)
     end
 end
