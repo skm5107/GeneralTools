@@ -11,9 +11,10 @@ classdef Rand
             end
         end
         
-        function selection = select(choices, num)
-            scramble = randperm(length(choices));
-            selection = choices(scramble(1:num));
+        function [selection, inds] = select(choices, num)
+            inds = Rand.btwn(1:length(choices), [1 num], 0);
+            selection = choices(inds);
+            
         end
         
         function shuffled = shuffled(rows)

@@ -1,21 +1,13 @@
 function propgrp = getPropertyGroups(self)
-    props = properties(self);
-    
     propList = struct();
-    for jprop = props'
-        propList.(jprop{:}) = getval(self(1).(jprop{:}));
+    for jprop = string(properties(self)')
+        propList.(jprop{:}) = getval(self.(jprop));
     end
     propgrp = matlab.mixin.util.PropertyGroup(propList);
 end
 
-function val = getval(prop)
-    if ismember("multi", Obj.allclasses(prop))
-        val = prop.get;
-    else
-        try
-            val = prop.clsDisp;
-        catch
-            val = prop;
-        end
+function val = getval(val)
+    if class(val) == "multi"
+        val = val{1};
     end
 end
