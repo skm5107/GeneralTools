@@ -8,12 +8,12 @@ classdef (HandleCompatible) valuable
             len = length(self.values);
         end
         
-        function sz = size(self)
-            sz = size(self.values);
-        end
-        
         function tf = isempty(self)
-            tf = isempty(self.values);
+            if any(size(self) == 0)
+                tf = true;
+            else
+                tf = isempty(self.values);
+            end
         end
     end
     

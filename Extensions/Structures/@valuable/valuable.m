@@ -4,13 +4,13 @@ classdef (HandleCompatible) valuable
     end
     
     methods
-        function len = length(self)
-            len = length(self.values);
-        end
+%         function len = length(self)
+%             len = length(self.values);
+%         end
         
-        function sz = size(self)
-            sz = size(self.values);
-        end
+%         function sz = size(self)
+%             sz = size(self.values);
+%         end
         
         function tf = isempty(self)
             tf = isempty(self.values);

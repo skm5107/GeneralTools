@@ -1,11 +1,13 @@
 function varargout = subsref(self, requests)
-    [propName, requests] = self.reference(requests);
-    [requests, isCell] = square2paren(requests);
-    
-    varargout = subsref(self.(propName), requests);
-    varargout = {reshape(varargout, 1, [])}; %address underlying transpose issue
-    varargout = recell(varargout, isCell);
-    
+        [propName, requests] = self.reference(requests);
+        [requests, isCell] = square2paren(requests);
+        if isempty(self)
+            varargout = [];
+        else
+            varargout = subsref(self.(propName), requests);
+            varargout = {reshape(varargout, 1, [])}; %address underlying transpose issue
+            varargout = recell(varargout, isCell);
+        end
     if ~isempty(varargout)
         Warn.warnIf(length(varargout) > max(1, nargout), "multi:deal", "multi not capturing all varargout matches")
     else
