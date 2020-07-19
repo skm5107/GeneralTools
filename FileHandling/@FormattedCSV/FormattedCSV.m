@@ -35,7 +35,6 @@ classdef FormattedCSV < handle
             csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', ...
                 'PreserveVariableNames', true, 'HeaderLines', self.rawSkipRows);
             self.raw = self.delExtra(csv);
-            
             self = self.getHeaders();
             self.out = self.setMeta(self.Heads);
             self.out = NestTable(self.out).run;

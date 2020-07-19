@@ -1,5 +1,6 @@
 function self = getHeaders(self)
-    [self.Heads.header, self.Heads.iswData] = loadRaw(self.raw, self.pathHead, self.headSkipRows);
+    [self.Heads.header, self.Heads.iswData] = ...
+        loadRaw(self.raw, self.pathHead, self.headSkipRows);
     self.Heads = self.Heads.run;
 end
 
