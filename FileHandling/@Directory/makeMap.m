@@ -1,5 +1,6 @@
 function map = makeMap(self, path)
     raw = struct2table(dir(path));
+    assert(~isempty(raw), "Directory:path", "path for Directory map is empty.\nTIP: Check current location.")
     map = customMap(self, raw);
     map = cleanMap(self, map);
 end

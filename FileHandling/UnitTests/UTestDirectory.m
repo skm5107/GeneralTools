@@ -7,7 +7,7 @@ classdef UTestDirectory < UTest
         function exPath = findExPath()
             herePath = which(fullfile("Navigating", "README.mlx"));
             topPath = fileparts(fileparts(herePath));
-            exPath = fullfile(topPath, "Importing", "UnitTests", "constants_example");
+            exPath = fullfile(topPath, "FileHandling", "UnitTests", "constants_example");
         end
     end
 end

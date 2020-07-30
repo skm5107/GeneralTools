@@ -15,7 +15,7 @@ classdef AutoSelector
     
     properties (Hidden)
         Dir (1,1) Directory = Directory()
-        Loader (1,1) FormattedCSV = FormattedCSV()
+        Loader (1,1) FormattedCsv = FormattedCsv()
         descDiv (1,1) string = "_"
     end
     

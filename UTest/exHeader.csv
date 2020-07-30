@@ -1,0 +1,5 @@
+exStr,exNum,exCat,Name4.sub1,Name4.sub2.subsubA,name7,Name4.sub2.subsubB
+q,d,C,{|}L,L,{|}r,{;}r
+units,units,units,slugs,NextIsBlank,,lastunits
+desc,desc,desc,descD,descF !@#$^&*())_+,DescG; g,"""descLast, with comma in quotes"""
+tblDesc,#,#,#,#,#,#

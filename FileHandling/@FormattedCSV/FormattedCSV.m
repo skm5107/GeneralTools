@@ -1,4 +1,4 @@
-classdef FormattedCSV < handle
+classdef FormattedCsv < handle
     properties
         pathCSV (1,1) string = missing
         pathHead (1,1) string = missing
@@ -8,6 +8,7 @@ classdef FormattedCSV < handle
         rawSkipRows (1,1) double = 0
         headSkipRows (1,1) double = 0
         Heads HeaderInfo = HeaderInfo()
+        commentChar = '#'
     end
     
     properties (SetAccess = private)
@@ -19,7 +20,7 @@ classdef FormattedCSV < handle
     end
     
     methods
-        function self = FormattedCSV(pathCSV, pathHead, rawSkipRows)
+        function self = FormattedCsv(pathCSV, pathHead, rawSkipRows)
             if nargin > 0
                 self.pathCSV = pathCSV;
             end
@@ -33,7 +34,8 @@ classdef FormattedCSV < handle
         
         function [out, self] = run(self)
             csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', ...
-                'PreserveVariableNames', true, 'HeaderLines', self.rawSkipRows);
+                'PreserveVariableNames', true, 'HeaderLines', self.rawSkipRows, ...
+                'CommentStyle', self.commentChar, 'Delimiter', ',');
             self.raw = self.delExtra(csv);
             self = self.getHeaders();
             self.out = self.setMeta(self.Heads);

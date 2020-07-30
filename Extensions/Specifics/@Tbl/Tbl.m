@@ -1,9 +1,13 @@
 classdef Tbl    
     properties (Constant)
         defVar = "Var"
+        nestDivider = "."
     end
     
     methods (Static)
+        [nest, nestNames] = nested_name(varName, val)
+        joint = nested_horzcat(old, new)
+        
         function new = substituteCol(orig, addition, colInd)
             new = [orig(:, 1:colInd-1), addition, orig(:, colInd+1:end)];
         end

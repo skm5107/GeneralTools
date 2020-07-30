@@ -4,10 +4,10 @@ function out = formatType(self, wasSplit)
     if wasSplit
         out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec), self.mid, 'uni', false);
     else
-        out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec), self.mid);
+        out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec), Arr.cellify(self.mid));
     end
 end
 
 function row = byRow(rowRaw, hndl, style)
-    row = cellfun(@(raw) hndl(raw, style), Arr.cellify(rowRaw));
+    row = cellfun(@(raw) hndl(raw, style), Arr.cellify(rowRaw), 'uni', 0);
 end

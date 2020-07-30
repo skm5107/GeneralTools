@@ -1,7 +1,7 @@
 classdef ParsedCSV
 end
 
-%In FormattedCSV: "missing" 
+%In FormattedCsv: "missing" 
 %[id/id] lookup & insert
 %[CAPITAL] as multi lookup
 % cleaning:
