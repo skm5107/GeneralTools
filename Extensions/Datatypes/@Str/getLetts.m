@@ -1,4 +1,4 @@
-function letts = getLetts(str)
+function letts = letter_get(str)
     if ~ismissing(str)
         chr = char(str);
         letts = chr(isletter(chr));
