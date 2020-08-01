@@ -38,6 +38,17 @@ classdef Fldr
     end
     
     methods (Static)
+        function fileName = getCallingFile(priorNth)
+            traceback = struct2table(dbstack);
+            if height(traceback) < 2
+                fileName = "";
+            else
+                reqRow = traceback(priorNth+1, :);
+                fileName = string(reqRow.file);
+                fileName = erase(fileName, Fcn.mExt);
+            end
+        end
+        
         function mkdirIfNone(dirName)
             orig = warning('off','MATLAB:MKDIR:DirectoryExists');
             mkdir(dirName)

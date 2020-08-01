@@ -23,8 +23,15 @@ classdef Tbl
         trans = invertMeta(raw)
         celled = meta2cell(orig)
         celled = cell2meta(orig)        
-        
         [reqTbl, reqVal] = lookup(tbl, matchVal, matchCol, reqCol)
+        
+        function varNames = varlist(structORtbl)
+            if ismember("table", Cls.allclasses(structORtbl))
+                varNames = structORtbl.Properties.VariableNames;
+            else
+                varNames = fields(structORtbl);
+            end
+        end
         
         function buffered = buffer(orig, row_qty)
             misses = repmat(missing, [row_qty, width(orig)]);
