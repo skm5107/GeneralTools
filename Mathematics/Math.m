@@ -5,6 +5,15 @@ classdef Math
             buffered(2) = max(bounds) + buff;
         end
         
+        function summed = nansum(vect, varargin)
+            vect(isnan(vect)) = [];
+            summed = sum(vect, varargin{:});
+        end
+       
+        function rng = range(vect)
+            rng = max(vect) - min(vect);
+        end
+        
         function last = lastGreater(array, val)
             vect = max(array, [], Num.getDim(array, "min"));
             last = find(vect >= val, 1, 'last');
