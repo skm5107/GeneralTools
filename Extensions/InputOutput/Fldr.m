@@ -1,54 +1,63 @@
 classdef Fldr
-    properties (Constant, Hidden)
-        pathDivs = {"/" "\"}
-        extDiv = "."
-    end
-        
+    %Static methods for navigating folders
+    
+    %% Fullfile Methods
     methods (Static)
         function cleaned = cleanPath(path)
             cleaned = strip(path, "/");
             cleaned = strip(cleaned, "\");
         end
         
-        function folders = unfullfile(path)
-            path = Fldr.cleanPath(path);
-            folders = regexp(path, "[\\/]", "split");
-        end
-            
-        function path = dirfullfile(mapRow)
-            fldr = mapRow.folder{:};
-            path = fullfile(fldr{:}, mapRow.filename + mapRow.ext);
-        end
-
-        function namewExt = fileext(fullPath)
-            [~, fileName, ext] = fileparts(fullPath);
-            namewExt = string(strcat(fileName, ext));
-        end
-        
-        function [ext, pathname] = checkext(filepath)
-            [path, name, ext] = fileparts(filepath);
-            ext = Str.eraseStart(ext, Fldr.extDiv);
-            pathname = fullfile(path, name);
-        end
-        
-        function filepath = changeext(filepath, ext)
-            [~, pathname] = Fldr.checkext(filepath);
-            filepath = pathname + Fldr.extDiv + ext;
+        function fullpath = dirfullpath(dirMapRow)
+            Except(dirMapRow).verifyClass("table");
+            folders = dirMapRow.folders{:};
+            fullpath = fullfile(folders{:}, dirMapRow.name);
         end
     end
     
     methods (Static)
-        function fileName = getCallingFile(priorNth)
-            traceback = struct2table(dbstack);
-            if height(traceback) < 2
-                fileName = "";
-            else
-                reqRow = traceback(priorNth+1, :);
-                fileName = string(reqRow.file);
-                fileName = erase(fileName, Fcn.mExt);
+        function filenameExt = fileext(fullPath)
+            [~, fileName, ext] = fileparts(fullPath);
+            filenameExt = string(strcat(fileName, ext));
+        end
+        function fullpath = fullfile(varargin)
+            for iprt = 1:length(varargin)
+                if isempty(varargin{iprt})
+                    varargin{iprt} = "";
+                end
+            end
+            if isempty(varargin)
+                varargin = {""};
+            end
+            fullpath = fullfile(varargin{:});
+        end
+        function [pathVect, folderVect, fileName] = unfullfile(folders)
+            folders = string(folders);
+            folders = strip(folders, 'both', '\');
+            folders = strip(folders, 'both', '/');
+            
+            pathVect = cell(size(folders));
+            folderVect = cell(size(folders));
+            fileName = strings(size(folders));
+            for ifldr = 1:size(folders, 1)
+                [pathVect{ifldr}, folderVect{ifldr}, fileName(ifldr)] = Fldr.folder1_parse(folders(ifldr));
             end
         end
-        
+    end
+
+    methods (Static, Access = private)
+        function [pathVect, folderVect, fileName] = folder1_parse(folder)
+            pathVect = strsplit(folder, ["/" "\"]);
+            
+            folderVect = pathVect(1:end-1);
+            folderVect(isempty(folderVect)) = "";
+            
+            fileName = pathVect(:, end);
+        end
+    end        
+       
+    %% Current Location Methods
+    methods (Static)
         function mkdirIfNone(dirName)
             orig = warning('off','MATLAB:MKDIR:DirectoryExists');
             mkdir(dirName)

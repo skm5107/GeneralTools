@@ -16,7 +16,7 @@ classdef UTestFcn < UTest
             nest.verifyEqual(actual, nestsExp)
         end
 %         function stagger_test(stag, staggers, staggersExp)
-%             actual = Fcn.uncell(staggers);
+%             actual = Arr.uncell(staggers);
 %             stag.verifyEqual(actual, staggersExp)
 %         end        
     end
