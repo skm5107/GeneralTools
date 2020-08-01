@@ -30,8 +30,8 @@ classdef Str
         
         strred = type2str(val)
         [isMatch, start_inds, nextChars] = findNextChar(txt, patterns)
-        nums = num_get(str)
-        letts = letter_get(str)
+        nums = getNums(str)
+        letts = getLetts(str)
         
         inside = getInside(text, btwn_chars)
         outside = getOutside(text, btwn_chars)

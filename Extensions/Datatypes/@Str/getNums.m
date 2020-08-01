@@ -1,4 +1,4 @@
-function nums = num_get(str)
+function nums = getNums(str)
     nums = str2double(regexp(string(str),'\d*','Match'));
     
     if isempty(nums)
