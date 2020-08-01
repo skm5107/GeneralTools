@@ -1,4 +1,6 @@
 classdef Except
+    % Various boolean checks that can throw custom errors
+    
     properties (GetAccess = protected)
         testVal
         testVal_name string
@@ -13,17 +15,14 @@ classdef Except
         doThrow logical = true
     end
     
-    properties (Access = private)
-        prefix = "Custom";
+    properties (Constant, Access = private)
+        component = "Custom";
     end
     
     methods
-        function self = Except(testVal, prefix)
+        function self = Except(testVal)
             if nargin > 0
                 self.testVal = testVal;
-            end
-            if nargin > 1
-                self.prefix = prefix;
             end
             
             try
@@ -35,28 +34,32 @@ classdef Except
     end
     
     methods (Static)
-        fullID = errID(checkName)
+        function fullID = errID(checkName)
+            self = Except;
+            self.doThrow = false;
+            method_hndl = str2func(checkName);
+            id = method_hndl(self);
+            fullID = self.fullID_make(id);
+        end
     end
     
     methods (Access = private)
-        id = throw_check(self)
-        throwErr(self)
-        
-        function fullID = fullID_make(self, id)
-             fullID = sprintf("%s:%s", self.prefix, id);
-        end        
-    end   
+        function id = throw_check(self)
+            if self.isErr && self.doThrow
+                self.throwErr;
+            else
+                id = self.id;
+            end
+        end
+    end
     
+    %% Checks
     methods
         id = verifyIsMember(self, allowableSet)
-        id = verifyDims(self, reqSz)
         id = verifyClass(self, classOptions)
-
         id = verifyNumeric(self)
         id = verifyPositive(self)
         id = verifyEqual(self, reqVal, location)
-        id = verifyBtwnIncld(self, reqVals, location)      
-
-        id = verifyFileOpens(self)
-    end    
+        id = verifyBtwnIncld(self, reqVals, location)
+    end
 end
