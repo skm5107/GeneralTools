@@ -16,4 +16,3 @@ function reqFcn = reqFcn_trace(~)
     [~, shorterInd] = min(cellfun(@length, shortnames));
     reqFcn = string(shortnames(shorterInd));
 end
-end
