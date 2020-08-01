@@ -6,6 +6,25 @@ classdef Prnt
         tex = table2latex(T, filename);
     end
     
+    methods (Static)
+        function displayable = sprintf(str, varargin) %expand
+            all_locs = regexp(str, "%");
+            str_locs = regexp(str, "%s");
+            if all_locs == str_locs
+                numAsString = num2cell(string(varargin));
+            end
+            displayable = sprintf(str, numAsString{:});
+        end
+        
+        function prnt = sing(singular, plural, qty)
+            if qty == 1
+                prnt = singular;
+            else
+                prnt = plural;
+            end
+        end        
+    end
+    
     %% Conditional Printing
     properties (Constant) %%TODO: constant if object doesn't exist?
         tier = 0
@@ -25,7 +44,11 @@ classdef Prnt
     %% Labeling
     methods (Static)
         function labeled = label(structORtbl)
-            varNames = Fcn.varlist(structORtbl);
+            if istable(structORtbl)
+                varNames = structORtbl.Properties.VariableNames;
+            else
+                varNames = fields(structORtbl);
+            end
             labeled = strings([length(varNames) 2]);
             for ivar = 1:length(varNames)
                 labeled(ivar, 1) = string(varNames{ivar});
@@ -53,14 +76,11 @@ classdef Prnt
     
     %% Shorthand Printers
     methods (Static)
-        function yes(varargin)
-            switch length(varargin)
-                case 0
-                    fprintf("Condition is true.\n")
-                case 1
-                    fprintf(sprintf("Condition is true: %g.\n", varargin{1}))
-                case 2
-                    fprintf(sprintf("Condition is true: %g.\n", varargin{1}), varargin{2}) %TODO: support iprintf
+        function yes(str)
+            if nargin < 1
+                fprintf("Condition is true.\n")
+            else
+                fprintf(sprintf("Condition is true: %s.\n", string(str)))
             end
         end
     end
