@@ -6,6 +6,7 @@ classdef Frmt
     properties (Constant)
         noType = "X"; %finalID that indicates datatype should be ignored
         defaultTableVar = "Var";
+        key = Frmt.loadKey()
     end
     
     methods (Static)
@@ -99,4 +100,8 @@ classdef Frmt
             arg2 = missing;
         end
     end
+    
+    methods (Static) %Access = private
+        key = loadKey()
+    end    
 end

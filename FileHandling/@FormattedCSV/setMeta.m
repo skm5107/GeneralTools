@@ -8,4 +8,7 @@ function metad = setMeta(self, Heads)
         varSpec = Heads.FormSpec(icol);
         metad.(varName) = Formatter(metad.(varName), varSpec).run;
     end
+    
+    keepcols = cellfun(@(iname) ~startsWith(iname, self.delCol_start), metad.Properties.VariableNames);
+    metad(:,~keepcols) = [];
 end

@@ -19,6 +19,10 @@ classdef FormattedCsv < handle
         raw
     end
     
+    properties
+        delCol_start = "_"
+    end
+    
     methods
         function self = FormattedCsv(pathCSV, pathHead, rawSkipRows)
             if nargin > 0
