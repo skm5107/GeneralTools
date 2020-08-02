@@ -17,4 +17,5 @@ end
 
 function tf = isDblQuote(val)
     tf = val == "";
+    tf = any(tf, 'all');
 end

@@ -11,15 +11,8 @@ classdef Str
         end
         
         [ind, match_frac] = closestMatch(strVect, str)
-    end
-    
-    methods (Static, Access = private)
-        tf = strloop(strVect, str, hndl)
-        [text, start_ind, end_ind] = inds_find(text, btwn_chars)
-        ind = get_ind(text, reqChar)
-    end
-    
-    methods (Static)        
+
+        len = length(strs)
         joined = join(strs, joiner, delNaN)
         splits = strsplit(strs, delimiter)
         out = splitJoin(txt, parser, inds, fromEnd)
@@ -36,4 +29,10 @@ classdef Str
         inside = getInside(text, btwn_chars)
         outside = getOutside(text, btwn_chars)
     end
+    
+    methods (Static, Access = private)
+        tf = strloop(strVect, str, hndl)
+        [text, start_ind, end_ind] = inds_find(text, btwn_chars)
+        ind = get_ind(text, reqChar)
+    end    
 end

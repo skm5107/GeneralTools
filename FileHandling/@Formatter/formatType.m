@@ -9,6 +9,7 @@ function out = formatType(self, wasSplit)
 end
 
 function row = byRow(rowRaw, hndl, style, wasSplit)
+    hndl = hndl.convertHndl{:,:};
     if wasSplit
         row = cellfun(@(raw) hndl(raw, style), Arr.cellify(rowRaw), 'uni', 0);
     else
