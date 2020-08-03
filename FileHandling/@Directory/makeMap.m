@@ -9,7 +9,7 @@ function map = customMap(self, raw)
     map = cleanFiles(raw);
     map.date = cellfun(@(idate) datetime(idate, 'Format', self.inputDate), raw.date);
     map.isdir = raw.isdir;
-    map.fullPath = string(cellfun(@(irow) Fldr.dirfullfile(map(irow, :)), num2cell(1:height(map)), 'uni', 0)');
+    map.fullPath = string(cellfun(@(irow) Fldr.dirfullpath(map(irow, :)), num2cell(1:height(map)), 'uni', 0)');
 end
 
 function map = cleanMap(self, map)

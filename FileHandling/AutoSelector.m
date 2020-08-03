@@ -54,7 +54,7 @@ classdef AutoSelector
             constFiles = cellfun(@(ifile) regexp(ifile, self.descDiv, "split"), self.map.filename, 'uni', 0);
         end
         function raw = loadEach(self, ipath)
-            self.Loader.pathCSV = ipath;
+            self.Loader.pathCsv = ipath;
             raw = self.Loader.run();
         end
     end

@@ -52,7 +52,7 @@ classdef Frmt
         end
         
         function [val, arg2] = clock(raw, style)
-            if nargin < 2
+            if nargin < 2 || ~Val.isFull(style)
                 val = datetime(string(raw));
             else
                 val = datetime(string(raw), 'InputFormat', style);
