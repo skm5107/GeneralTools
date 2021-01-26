@@ -22,6 +22,11 @@ classdef NestTable
         
         function [out, self] = run(self)
             out = self.raw;
+            noNest = ~any(contains(self.raw.Properties.VariableNames, self.nestDiv));
+            if noNest
+                return
+            end
+            
             self = self.readRawVars(out);
             for icol = length(self.uniTops):-1:1
                 [out, flatCol] = self.mergeEachCol(out, icol);

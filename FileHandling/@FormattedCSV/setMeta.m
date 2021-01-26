@@ -2,7 +2,6 @@ function metad = setMeta(self, Heads)
     metad = self.raw;
     metad = cleanExtra(metad, Heads);
     metad.Properties = Heads.Props;
-    
     for icol = 1:width(metad)
         varName = metad.Properties.VariableNames{icol};
         varSpec = Heads.FormSpec(icol);
@@ -19,10 +18,12 @@ function metad = cleanExtra(metad, Heads)
        metad = delCols(metad, Heads.Props.VariableNames);
     end
 end
+
 function metad = delCols(metad, varNames)
     cols_qty = width(metad) - length(varNames);
+    delCols = false;
     for icol = width(metad) : width(metad) - cols_qty +1
         delCols(icol) = ~Val.isFull([metad{:,icol}]);
     end
-     metad(:, delCols) = [];    
+    metad(:, delCols) = [];    
 end

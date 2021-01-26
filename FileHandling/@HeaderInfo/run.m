@@ -1,5 +1,5 @@
 function self = run(self)
-    for irow = 1:height(self.key)
+    for irow = 1 : height(self.key)
         self = extractHeadRow(self, self.key(irow,:));
     end
     self.Props = self.header.Properties;
@@ -7,7 +7,7 @@ end
 
 function self = extractHeadRow(self, keyRow)
     if keyRow.csvRow > 1
-        headRow = self.header{keyRow.csvRow-1,:};
+        headRow = self.header{keyRow.csvRow -1,:};
         self = setProp(self, keyRow.propName, headRow);
     end
 end

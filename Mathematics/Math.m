@@ -1,8 +1,9 @@
 classdef Math
     methods (Static)
-        function buffered = buffer(bounds, buff)
-            buffered(1) = min(bounds) - buff;
-            buffered(2) = max(bounds) + buff;
+        function wrapped = wrap(val, shift, range)
+            ind = val == range;
+            range_shifted = circshift(range, -shift);
+            wrapped = range_shifted(ind);
         end
         
         function summed = nansum(vect, varargin)
@@ -12,6 +13,10 @@ classdef Math
        
         function rng = range(vect)
             rng = max(vect) - min(vect);
+        end
+        
+        function int_tf = isint(val)
+            int_tf = rem(val, 1) == 0;
         end
         
         function last = lastGreater(array, val)

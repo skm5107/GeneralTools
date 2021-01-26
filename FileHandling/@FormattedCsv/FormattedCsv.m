@@ -1,13 +1,16 @@
 classdef FormattedCsv < handle
     properties
-        pathCSV (1,1) string = missing
+        pathCsv (1,1) string = missing
         pathHead (1,1) string = missing
     end
     
     properties (Hidden)
-        rawSkipRows (1,1) double = 0
-        headSkipRows (1,1) double = 0
+        rawSkipRows (1,1) uint8 = 0
+        headSkipRows (1,1) uint8 = 0
         Heads HeaderInfo = HeaderInfo()
+        
+        delimiter = {',' '|'}
+        delCol_start = "_"
         commentChar = '#'
     end
     
@@ -17,33 +20,26 @@ classdef FormattedCsv < handle
     
     properties (Access = private)
         raw
-    end
-    
-    properties
-        delCol_start = "_"
+        readSpec
     end
     
     methods
-        function self = FormattedCsv(pathCSV, pathHead, rawSkipRows)
+        function self = FormattedCsv(pathCsv, varargin)
             if nargin > 0
-                self.pathCSV = pathCSV;
+                self.pathCsv = pathCsv;
             end
-            if nargin > 1 && Val.isFull(pathHead)
-                self.pathHead = pathHead;
-            end
-            if nargin > 2
-                self.rawSkipRows = rawSkipRows;
+            if nargin > 1
+                self = inputparse(varargin);
             end
         end
         
         function [out, self] = run(self)
-            csv = readtable(self.pathCSV, 'TextType', 'string', 'DatetimeType', 'text', ...
-                'PreserveVariableNames', true, 'HeaderLines', self.rawSkipRows, ...
-                'CommentStyle', self.commentChar, 'Delimiter', ',');
-            self.raw = self.delExtra(csv);
             self = self.getHeaders();
+            csv = readtable(self.pathCsv, 'Delimiter', self.delimiter, ...
+                'CommentStyle', self.comment_start, 'HeaderLines', self.rawSkipRows);
+            self.raw = self.delExtra(csv);
             self.out = self.setMeta(self.Heads);
-            self.out = NestTable(self.out).run;
+            %self.out = NestTable(self.out).run;
             out = self.out;
         end
     end
@@ -56,5 +52,10 @@ classdef FormattedCsv < handle
     
     methods (Static, Access = private)
         raw = delExtra(raw)
+        %readSpec = countMaxDelimiters(pathCsv)
     end
+end
+
+function self = inputparse(varargin)
+    
 end

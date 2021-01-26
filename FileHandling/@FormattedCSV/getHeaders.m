@@ -2,6 +2,9 @@ function self = getHeaders(self)
     [self.Heads.header, self.Heads.iswData] = ...
         loadRaw(self.raw, self.pathHead, self.headSkipRows);
     self.Heads = self.Heads.run;
+    
+    wid = size(self.Heads.Props.VariableNames, 2);
+    self.readSpec = join(repmat("%q", [1 wid]), "");
 end
 
 function [raw, headerAboveRaw] = loadRaw(raw, pathHead, headSkipRows)

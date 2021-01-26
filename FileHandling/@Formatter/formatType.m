@@ -1,18 +1,14 @@
 function out = formatType(self, wasSplit)
     fcnHndl = Tbl.lookup(Frmt.key, self.FormSpec.typeSpec, "typeID", "convertHndl");
-    fcnHndl = Arr.uncell(fcnHndl);
+    fcnHndl = clean(fcnHndl); 
     if wasSplit
-        out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec, wasSplit), self.mid, 'uni', false);
+        out = cellfun(@(row) fcnHndl(row, self.FormSpec.styleSpec), self.mid, 'uni', false);
     else
-        out = cellfun(@(row) byRow(row, fcnHndl, self.FormSpec.styleSpec, wasSplit), Arr.cellify(self.mid));
+        out = cellfun(@(row) fcnHndl(row, self.FormSpec.styleSpec), Arr.cellify(self.mid));
     end
 end
 
-function row = byRow(rowRaw, hndl, style, wasSplit)
-    hndl = hndl.convertHndl{:,:};
-    if wasSplit
-        row = cellfun(@(raw) hndl(raw, style), Arr.cellify(rowRaw), 'uni', 0);
-    else
-        row = cellfun(@(raw) hndl(raw, style), Arr.cellify(rowRaw));
-    end
+function fcnHndl = clean(fcnHndl)
+    fcnHndl = Arr.uncell(fcnHndl);
+    fcnHndl = fcnHndl.convertHndl{:,:};
 end
