@@ -63,7 +63,7 @@ if default      % Apply a default style
     style.ScaledFontSize = 'auto';
     style.FontMode = 'fixed';
     style.FontSizeMin = '26';
-    style.FixedLineWidth = '4';
+    style.FixedLineWidth = '8';
     style.ScaledLineWidth = 'auto';
     style.LineMode = 'fixed';
     style.LineWidthMin = '0.5';

@@ -28,11 +28,26 @@ classdef Str
         
         inside = getInside(text, btwn_chars)
         outside = getOutside(text, btwn_chars)
+        
+        function capped = titleCase(text)
+            delim = " ";
+            parsed = split(text, delim);
+            capped = "";
+            for jword = parsed'
+                jchar = char(jword);
+                jupper = upper(jchar(1));
+                if length(jchar) > 1
+                    jupper = strcat(jupper, jchar(2:end), "");
+                end
+                capped = capped + delim + jupper;
+            end
+            capped = strip(capped, delim);
+        end
     end
     
     methods (Static, Access = private)
         tf = strloop(strVect, str, hndl)
         [text, start_ind, end_ind] = inds_find(text, btwn_chars)
         ind = get_ind(text, reqChar)
-    end    
+    end        
 end
