@@ -33,7 +33,7 @@ classdef HeaderInfo < handle
         end
         
         self = run(self)
-                
+        
         function delRows = get.delRows(self)
             if self.iswData
                 delRows = self.key.csvRow(1:end-1);

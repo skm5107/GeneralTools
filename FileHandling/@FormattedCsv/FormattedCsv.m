@@ -24,22 +24,21 @@ classdef FormattedCsv < handle
     end
     
     methods
-        function self = FormattedCsv(pathCsv, varargin)
+        function self = FormattedCsv(pathCsv, pathHead)
             if nargin > 0
                 self.pathCsv = pathCsv;
             end
             if nargin > 1
-                self = inputparse(varargin);
+                self.pathHead = pathHead;
             end
         end
         
         function [out, self] = run(self)
             self = self.getHeaders();
             csv = readtable(self.pathCsv, 'Delimiter', self.delimiter, ...
-                'CommentStyle', self.comment_start, 'HeaderLines', self.rawSkipRows);
+                'CommentStyle', self.commentChar, 'HeaderLines', self.rawSkipRows);
             self.raw = self.delExtra(csv);
             self.out = self.setMeta(self.Heads);
-            %self.out = NestTable(self.out).run;
             out = self.out;
         end
     end
@@ -52,10 +51,5 @@ classdef FormattedCsv < handle
     
     methods (Static, Access = private)
         raw = delExtra(raw)
-        %readSpec = countMaxDelimiters(pathCsv)
     end
-end
-
-function self = inputparse(varargin)
-    
 end
