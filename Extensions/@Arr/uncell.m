@@ -1,7 +1,13 @@
-function content = uncell(celled)
+function content = uncell(celled, lvl)
+    if nargin < 2
+        maxtries = 10;
+    else
+        maxtries = lvl;
+    end
+    
     content = celled;
     itry = 1;
-    while iscell(content) && itry <= 10
+    while iscell(content) && itry <= maxtries
         if iscellstr(content)
             content = string(content);
         else

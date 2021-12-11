@@ -1,6 +1,6 @@
 classdef Arr
     methods (Static)
-        content = uncell(celled)
+        content = uncell(celled, lvl)
         celled = cellify(content, varargin)
         
         [flat, origShape] = flatten(arr, horzORvert)

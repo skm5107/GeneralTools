@@ -1,5 +1,6 @@
-function outside = getOutside(text, btwn_chars)
+function outside = getOutside(text, btwnChars)
     outside = Str.eraseBtwn(text, ...
-        [btwn_chars(:,1); btwn_chars(:,1)], ...
-        [btwn_chars(:,2); btwn_chars(:,2)], 'inclusive');
+        [btwnChars(:,1); btwnChars(:,1)], ...
+        [btwnChars(:,2); btwnChars(:,2)], 'inclusive');
+    outside = outside';
 end

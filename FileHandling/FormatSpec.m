@@ -43,6 +43,10 @@ classdef FormatSpec
             len = length(self.rawSpec);
         end
         
+        function tf = isempty(self)
+            tf = ~Val.isFull(self.typeSpec) && ~Val.isFull(self.styleSpec);
+        end
+        
         function IndSpec = subsref(self, ref)
             if ref.type == "."
                 IndSpec = self.(ref.subs);

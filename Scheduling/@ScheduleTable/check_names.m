@@ -1,0 +1,1 @@
+function self = check_names(self)

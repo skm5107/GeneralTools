@@ -1,4 +1,5 @@
 classdef Directory
+    % Iteratively map a folder and its subfolders
     properties (Hidden)
         path (1,1) string
         maxsubLvl (1,1) double = 10

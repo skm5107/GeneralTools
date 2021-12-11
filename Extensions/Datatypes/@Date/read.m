@@ -66,7 +66,7 @@ function frmt = recognize3divs(parsed, div)
 end
 
 function frmt = recYear(orig)
-    if Str.length(orig) > 2
+    if strlength(orig) > 2
         frmt = "yyyy";
     else
         frmt = "yy";

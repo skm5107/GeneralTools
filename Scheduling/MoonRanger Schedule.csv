@@ -1,0 +1,135 @@
+State,% Complete,Task Name,Duration,Start,Finish,Assigned To,Predecessors,Comments,Cost (for OH),Cost (no OH),Row,Parent
+Red,0%,Contract Completion,2d,11/26/2021,11/28/2021,,,,,,1,#NO MATCH
+Red,0%,1.0 Program Management,2d,11/26/2021,11/28/2021,,,,,,2,1
+Red,0%,Undistibuted Labor,2d,11/26/2021,11/28/2021,,,,,,3,2
+Red,0%,Complete Pre-CDR Work (for dependencies),,,,,,,,,4,1
+Red,0%,<None currently>,,,,,,,,,5,4
+Red,0%,Software Team Section,,,,,,,,,6,1
+Red,0%,Software Releases (sof),,,,,,,,,7,6
+Red,0%,FlatSat-B: FlatSat with Rev B Boards,,,,,,,,,8,7
+Red,0%,FlatSat-B2: software ready for FlatSat-B2 AVI integration,0,,,,,,,,9,8
+Red,0%,Rover-C: Terrestrial EM Rover,,,,,,,,,10,7
+Red,0%,Loaf-C: software ready for loaf integration,0,,,,,,,,11,10
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,12,7
+Red,0%,Loaf-F: software ready for loaf integration,0,,,,,,,,13,12
+Red,0%,Rover-F: software ready for full rover integration,0,,,,,,,,14,12
+Red,0%,SOF Checkouts on Integrated Systems,,,,,,,,,15,6
+Red,0%,Rover-F: Protoflight Rover Steps,,,,,,,,,16,15
+Red,0%,Loaf-F,,,,,,,,,17,16
+Red,0%,<Finish Standin>,0,,,,"19, 20, 21, 22",,,,18,17
+Red,0%,Checkout Can Start,0,,,,72,,,,19,17
+Red,0%,Load Software,1d,,,,19,,,,20,17
+Red,0%,Checkout Loaf,1w,,,,20,,,,21,17
+Red,0%,Focus Cameras,1d,,,,21,,,,22,17
+Red,0%,Rover-F,,,,,,,,,23,16
+Red,0%,<Finish Standin>,0,,,,"25, 26, 27, 28, 29, 30",,,,24,23
+Red,0%,Checkout Can Start,0,,,,75,,,,25,23
+Red,0%,Loaf Software,1d,,,,25,,,,26,23
+Red,0%,Calibrate Cameras,1w,,,,26,,,,27,23
+Red,0%,Check Coordinate Frames & Sun Sensor,4d,,,,27,,,,28,23
+Red,0%,Check Communications Links,2d,,,,28,,,,29,23
+Red,0%,Load Test,2w,,,,29,,,,30,23
+Red,0%,Ready-By Date Interface,,,,,,,,,31,1
+Red,0%,Avionics Components (avi),,,,,,,,,32,31
+Red,0%,FlatSat-B: FlatSat with Rev B Boards,,,,,,,,,33,32
+Red,0%,FlatInfra-B: FlatSat is ready for integration except for boards,0,,,,,,,,34,8
+Red,0%,Boards-B1: 1st set of boards is ready for FlatSat integration,0,,,,,,,,35,8
+Red,0%,Boards-B2: 2nd set of boards is ready for FlatSat integration,0,,,,,,,,36,8
+Red,0%,Rover-C: Terrestrial EM Rover,,,,,,,,,37,32
+Red,0%,Chassis-C: all lower chassis components ready for MEC/WIRE integration,0,,,,,,,,38,10
+Red,0%,Radiator-C: all non-Loaf radiator components ready for MEC/WIRE integration,0,,,,,,,,39,10
+Red,0%,Loaf-C: all Loaf boards ready for MEC/WIRE integration,0,,,,,,,,40,10
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,41,32
+Red,0%,Chassis-F: all lower chassis components ready for MEC/WIRE integration,0,,,,,,,,42,12
+Red,0%,Radiator-F: all non-Loaf radiator components ready for MEC/WIRE integration,0,,,,,,,,43,12
+Red,0%,Loaf-F: all Loaf boards ready for MEC/WIRE integration,0,,,,,,,,44,12
+Red,0%,NSS-F: flight NSS ready for MEC/WIRE integration,0,,,,,,,,45,12
+Red,0%,Wire Harnesses (wire),,,,,,,,,46,31
+Red,0%,Rover-C: Terrestrial EM Rover,,,,,,,,,47,46
+Red,0%,Loaf-C: loaf harness ready for AVI/MEC integration,0,,,,,,,,48,10
+Red,0%,Radiator-C: radiator harness ready for AVI/MEC integration,0,,,,,,,,49,10
+Red,0%,Chassis-C: chassis harness ready for AVI/MEC integration,0,,,,,,,,50,10
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,51,46
+Red,0%,Loaf-F: loaf harness ready for AVI/MEC integration,0,,,,,,,,52,12
+Red,0%,Radiator-F: radiator harness ready for AVI/MEC integration,0,,,,,,,,53,12
+Red,0%,Chassis-F: chassis harness ready for AVI/MEC integration,0,,,,,,,,54,12
+Red,0%,Mechanical Structure (mec),,,,,,,,,55,31
+Red,0%,Rover-C: Terrestrial EM Rover,,,,,,,,,56,55
+Red,0%,Loaf-C: loaf shell ready for AVI/WIRE integration,0,,,,,,,,57,10
+Red,0%,Radiator-C: radiator plate ready for AVI/WIRE integration,0,,,,,,,,58,10
+Red,0%,Chassis-C: chassis shell ready for AVI/WIRE integration,0,,,,,,,,59,10
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,60,55
+Red,0%,Loaf-F: loaf shell ready for AVI/WIRE integration,0,,,,,,,,61,12
+Red,0%,Radiator-F: radiator plate ready for AVI/WIRE integration,0,,,,,,,,62,12
+Red,0%,Chassis-F: chassis shell ready for AVI/WIRE integration,0,,,,,,,,63,12
+Red,0%,Thermal Equipment (thr),,,,,,,,,64,31
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,65,64
+Red,0%,MLI-C: EM MLI,0,,,,,,,,66,12
+Red,0%,MLI-F: flight MLI,0,,,,,,,,67,12
+Red,0%,Intra-AI&T Interface,,,,,,,,,68,1
+Red,0%,Software Checkouts (sof),,,,,,,,,69,68
+Red,0%,Rover-F: Protoflight Rover,,,,,,,,,70,69
+Red,0%,Loaf-F: checkout on loaf,,,,,,,,,71,12
+Red,0%,TO-TEAM Loaf-F: dependency for starting the SOF checkout task,0,,,,87,,,,72,71
+Red,0%,FROM-TEAM Loaf-F: end of SOF checkout,0,,,,18,,,,73,71
+Red,0%,Rover-F: checkout on rover,,,,,,,,,74,12
+Red,0%,TO-TEAM Rover-F: dependency for starting the SOF checkout task,0,,,,"""112""",,,,75,74
+Red,0%,FROM-TEAM Rover-F: end of SOF checkout,0,,,,24,,,,76,74
+Red,0%,Rover-F AI&T,,,,,,,,,77,1
+Red,0%,Loaf-F,,,,,,,,,78,77
+Red,0%,<Finish Standin>,0,,,Siri Maley,"81, 85",,,,79,17
+Red,0%,Assembly,,,,,,,,,80,17
+Red,0%,<Finish Standin>,1d,,,Siri Maley,82,,,,81,80
+Red,0%,Integrate Loaf-F(avi) and Loaf-F(mec) [=Loaf-F],1d,,,,"44, 57",,,,82,80
+Red,0%,Integrate Loaf-F(wire) into Loaf-F,1d,,,,"82, 48",,,,83,80
+Red,0%,SOF Checkout,,,,,,,,,84,17
+Red,0%,<Finish Standin>,0,,,Siri Maley,"86, 87, 88",,,,85,84
+Red,0%,Integrate Loaf-F(sof) into Loaf-F,1d,,,,"13, 82",,,,86,84
+Red,0%,SOF Checkout Starts,0,,,,86,,,,87,84
+Red,0%,SOF Checkout Ends,0,,,,73,,,,88,84
+Red,0%,Radiator-F,,,,,,,,,89,77
+Red,0%,<Finish Standin>,0,,,Siri Maley,"91, 92, 93",,,,90,89
+Red,0%,Integrate Radiator-F(avi) and Radiator-F(mec) [= Radiator-F],1d,,,,"43, 62",,,,91,89
+Red,0%,Integrate Loaf-F into Radiator-F,1d,,,,"91, 85",,,,92,89
+Red,0%,Integrate Radiator-F(wire) into Radiator-F,1d,,,,"92, 53",,,,93,89
+Red,0%,Chassis-F,,,,,,,,,94,77
+Red,0%,<Finish Standin>,0,,,Siri Maley,"96, 97",,,,95,94
+Red,0%,Integrate NSS-F(nss) and Chassis-F(mec) [= Chassis-F],1d,,,,"45, 63",,,,96,94
+Red,0%,Integrate Chassis-F(wire) into Chassis-F,1d,,,,"54, 96",,,,97,94
+Red,0%,Rover-F,,,,,,,,,98,77
+Red,0%,<Finish Standin>,0,,,Siri Maley,"101, 105",,,,99,23
+Red,0%,Assembly,,,,,,,,,100,23
+Red,0%,<Finish Standin>,0,,,,"102, 103",,,,101,80
+Red,0%,Integrate Radiator-F and Chassis-F [= Body-F],1d,,,,"90, 95",,,,102,80
+Red,0%,Integrate MLI-C(thr) and Body-F [= Rover-FC],3d,,,,"102, 66",,,,103,80
+Red,0%,SOF & NSS Checkout,,,,,,,,,104,23
+Red,0%,<Finish Standin>,0,,,Siri Maley,"106, 107, 108, 109",,,,105,104
+Red,0%,NSS: ETU-1 Test 2,1d,,,,101,,,,106,104
+Red,0%,Integrate Rover-F(sof) into Rover-FC,1d,,,,106,,,,107,104
+Red,0%,SOF Checkout Starts,0,,,,107,,,,108,104
+Red,0%,SOF Checkout Ends,0,,,,76,,,,109,104
+Red,0%,Environmental Qualification,,,,,,,,,110,23
+Red,0%,<Finish Standin>,0,,,Siri Maley,"114, 119, 125, 131",,,,111,110
+Red,0%,Ready for Environmental Qualification,0,,,Siri Maley,105,,,,112,110
+Red,0%,VVF-EMI EMI/EMC Qualification,,,,,,,,,113,110
+Red,0%,<Finish Standin>,0,,,Siri Maley,"115, 116, 117",,,,114,113
+Red,0%,AVI: write test plan,4w,,,,116SF,,,,115,113
+Red,0%,Use Rover-FC for test (includes hardware travel),1d,,,,112,,,,116,113
+Red,0%,AVI: write test report,2w,,,,116,,,,117,113
+Red,0%,VVF-TVAC Thermal Vacuum Qualification,,,,,,,,,118,110
+Red,0%,<Finish Standin>,0,,,Siri Maley,"120, 121, 122",,,,119,118
+Red,0%,THR: write test plan,4w,,,,121SF,,,,120,118
+Red,0%,Use Rover-FC for test (includes hardware travel),10d,,,,116,,,,121,118
+Red,0%,THR: write test report,2w,,,,121,,,,122,118
+Red,0%,Disassemble MLI-C from Rover-FC [=Body-F],3d,,,,,,,,123,110
+Red,0%,VVF-VIBE Vibration & Shock Qualification,,,,,,,,,124,110
+Red,0%,<Finish Standin>,0,,,Siri Maley,"126, 127, 128",,,,125,124
+Red,0%,MEC: write test plan,4w,,,,127SF,,,,126,124
+Red,0%,Use Body-F for test (includes hardware travel),5d,,,,123,,,,127,124
+Red,0%,MEC: write test report,2w,,,,127,,,,128,124
+Red,0%,Integrate MLI-C into Body-F [=Rover-F],3d,,,,127,,,,129,110
+Red,0%,VVF-FLIGHT Delivery-in-Place Inspection,,,,,,,,,130,110
+Red,0%,<Finish Standin>,0,,,Siri Maley,"132, 133, 134",,,,131,130
+Red,0%,SYS: write test report,2w,,,,133SF,,,,132,130
+Red,0%,Use Rover-F for test,1d,,,,129,,,,133,130
+Red,0%,SYS: write test report,1d,,,,133,,,,134,130

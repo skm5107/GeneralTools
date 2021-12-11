@@ -1,31 +1,40 @@
 classdef UTestFormattedCsv < UTest
-    %For ROSOUT: requires inserting text before #### in example file
     properties (Constant, Hidden)
-        topCsv = fullfile("PCAMS_Analysis", "ExampleSrc", ...
-            "RadPiper-01_0253_42CalVer_2019-03-20-12-57-08_U3O8")
-        topHead = fullfile("PCAMS_Analysis", "PCAMS", "Constants", "headers", "tested")
-        key = readtable(fullfile(UTestFormattedCsv.topCsv, "unittest.csv"))
-    end
-
-    properties (TestParameter)
-        pathHead = UTestFormattedCsv.key.pathHead
-        pathCsv = UTestFormattedCsv.key.pathCsv
-        hgt = num2cell(UTestFormattedCsv.key.hgt)
-        second_val = num2cell(UTestFormattedCsv.key.headSeq)
+        exCsv = fullfile(Fldr.getcurPath(mfilename("fullpath")), ...
+            "example_data.csv")
+        exHead = fullfile(Fldr.getcurPath(mfilename("fullpath")), ...
+            "example_header.csv")
     end
     
-    methods (Test, ParameterCombination = 'sequential')
-        function checkRead(tester, pathHead, pathCsv, hgt)
-            fileCsv = fullfile(UTestFormattedCsv.topCsv, pathCsv);
-            fileHead = fullfile(UTestFormattedCsv.topHead, pathHead);
-%             raw = readtable(fileCsv);
-            raw = readtable(fileCsv, 'Delimiter', {',', '|'}, ...
-                'HeaderLines', 0, ...
-                'ReadVariableNames', true, 'PreserveVariableNames', true, ...
-                'CommentStyle', '#');
-           % raw = FormattedCsv(fileCsv, fileHead).run;
-            tester.assertEqual(height(raw), hgt);
+    methods (Test)
+        function checkwData1(checker)
+            origWarn = warning("off", 'MATLAB:table:ModifiedAndSavedVarnames');
+            act = FormattedCsv(UTestFormattedCsv.exCsv);
+            act.headerRows = 1;
+            act = act.run;
+            checker.verifySize(act, [7,5])
+            checker.verifyEqual(act.incld_cell(end), {'missing'})
+            warning(origWarn)
         end
+        
+        function checkwData5(checker)
+            origWarn = warning("off", 'MATLAB:table:ModifiedAndSavedVarnames');
+            act = FormattedCsv(UTestFormattedCsv.exCsv);
+            act = act.run;
+            checker.verifySize(act, [3,5])
+            checker.verifyEqual(act.incld_cell{end}, {'missing'})
+            warning(origWarn)
+        end        
+        
+        function checkHead(checker)
+            origWarn = warning("off", 'MATLAB:table:ModifiedAndSavedVarnames');
+            act = FormattedCsv(UTestFormattedCsv.exCsv, UTestFormattedCsv.exHead);
+            act.rawSkipRows = 5; %skip the header in the example data file
+            act = act.run;
+            checker.verifySize(act, [3,5])
+            checker.verifyEqual(act.separated_cat(2), categorical("Category-3"))
+            warning(origWarn)
+        end        
     end
         
 end

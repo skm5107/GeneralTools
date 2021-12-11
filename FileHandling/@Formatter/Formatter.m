@@ -5,7 +5,7 @@ classdef Formatter
     end
     
     properties (Access = private)
-        mid
+        splitted
         escChar = "\"
     end
     
@@ -20,7 +20,8 @@ classdef Formatter
         end
         
         function out = run(self)
-            [self.mid, wasSplit] = self.formatSplit();
+            %Parse and datatype raw values
+            [self.splitted, wasSplit] = self.formatSplit();
             out = self.formatType(wasSplit);
         end
     end

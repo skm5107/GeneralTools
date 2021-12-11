@@ -1,4 +1,6 @@
 function map = makeMap(self, path)
+    % Make a custom list of the files in the current folder (includes more
+    % than the standard MATLAB version).
     raw = struct2table(dir(path));
     assert(~isempty(raw), "Directory:path", "path for Directory map is empty.\nTIP: Check current location.")
     map = customMap(self, raw);

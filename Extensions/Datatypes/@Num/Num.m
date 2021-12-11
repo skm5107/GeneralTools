@@ -16,5 +16,6 @@ classdef Num
         rolling = stepped2cumsum(stepped, step_inc, sum_dist)
         
         [ints, decimals] = getDigits(number, precision_decimals)
+        newstr = insertCommas(number, precision_decimals)
     end
 end

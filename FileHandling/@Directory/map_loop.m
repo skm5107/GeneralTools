@@ -1,4 +1,5 @@
 function [map, iloop] = map_loop(self, path, iloop)
+    %Iteratively map down a tree of subfolders
     map = self.makeMap(path);
     newPaths = self.checkMap(map);
     if ~isempty(newPaths) && iloop <= self.maxsubLvl

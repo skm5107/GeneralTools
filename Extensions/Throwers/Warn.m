@@ -1,6 +1,6 @@
 classdef Warn
     methods (Static)
-        function warnIf(condition, id, warn)
+        function isWarn = warnIf(condition, id, warn)
             if nargin < 2 || ~Val.isFull(id)
                 id = "Custon:Blank";
             elseif ~contains(id, ":")
@@ -12,15 +12,18 @@ classdef Warn
             end
             
             if condition
+                isWarn = true;
                 warning(id, warn);
+            else
+                isWarn = false;
             end
         end
         
-        function warnIfNot(condition, id, warn)
+        function isWarn = warnIfNot(condition, id, warn)
             if nargin > 2
-                Warn.warnIf(~condition, warn, id);
+               isWarn = Warn.warnIf(~condition, warn, id);
             else
-                Warn.warnIf(~condition, warn);
+                isWarn = Warn.warnIf(~condition, warn);
             end
         end
     end

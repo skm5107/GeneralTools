@@ -9,7 +9,7 @@ classdef AutoLoader
         selectTags
     end
     
-    properties (Access = private)
+    properties %(Access = private)
         map
         allTags
     end
@@ -55,25 +55,24 @@ classdef AutoLoader
     
     methods (Access = private)
         function allTags = extractTags(self)
+            fullPaths = cellfun(@self.makePath, self.map.folder, ...
+                                self.map.filename, 'uni', 0);
             allTags = cellfun(@(ifile) ...
-                regexp(ifile, self.descDiv, "split"), ...
-                self.map.filename, 'uni', 0);
+                              regexp(ifile, self.descDiv, "split"), ...
+                              fullPaths, 'uni', 0);
         end
         function raw = loadEach(self, ipath)
             self.Loader.pathCsv = self.selectPaths(ipath);
             raw = self.Loader.run();
         end
-    end
-    
-    methods (Static)
-        function requests = makeCatalogRequest(varargin)
-            assert( Num.iseven(nargin), "CatalogRequest:name-value", ...
-                "Provide a name and value for each requested category");
-            requests = [];
-            for icat = 1 : 2 : nargin
-                jcat = varargin{icat+1} + "(" + varargin{icat} + ")";
-                requests{length(requests)+1} = jcat; %#ok<AGROW>
-            end
+        
+        function full = makePath(self, folders, filename)
+            folderPath = Fldr.joinfile(folders);
+            cleaned = Str.eraseUpto(folderPath, self.topPath);
+            [top, lvl] = fileparts(cleaned);
+            fldrs = strip(join([top, lvl], self.descDiv), self.descDiv);
+            file = join(string(filename), self.descDiv);
+            full = fldrs + self.descDiv + file;
         end
     end
 end

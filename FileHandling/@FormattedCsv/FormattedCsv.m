@@ -1,55 +1,66 @@
-classdef FormattedCsv < handle
+classdef FormattedCsv
     properties
-        pathCsv (1,1) string = missing
-        pathHead (1,1) string = missing
-    end
-    
-    properties (Hidden)
-        rawSkipRows (1,1) uint8 = 0
-        headSkipRows (1,1) uint8 = 0
-        Heads HeaderInfo = HeaderInfo()
+        pathRaw (1,1) string
+        pathHeader (1,1) string = string(missing)
         
-        delimiter = {',' '|'}
-        delCol_start = "_"
-        commentChar = '#'
+        headerRows (1,1) double = 5
+        rawSkipRows (1,1) double = 0
     end
     
     properties (SetAccess = private)
-        out
+        metad
     end
     
     properties (Access = private)
+        header
         raw
-        readSpec
+        Heads
+        FormSpec
+    end
+    
+    properties (Access = private, Constant)
+        headRows = ["FormSpec", "VariableUnits", ...
+                    "VariableDescriptions", "Description"];
     end
     
     methods
-        function self = FormattedCsv(pathCsv, pathHead)
+        function self = FormattedCsv(pathRaw, pathHeader)
             if nargin > 0
-                self.pathCsv = pathCsv;
+                self.pathRaw = pathRaw;
             end
-            if nargin > 1
-                self.pathHead = pathHead;
+            if nargin > 1 && Val.isFull(pathHeader)
+                self.pathHeader = pathHeader;
             end
         end
         
-        function [out, self] = run(self)
-            self = self.getHeaders();
-            csv = readtable(self.pathCsv, 'Delimiter', self.delimiter, ...
-                'CommentStyle', self.commentChar, 'HeaderLines', self.rawSkipRows);
-            self.raw = self.delExtra(csv);
-            self.out = self.setMeta(self.Heads);
-            out = self.out;
+        function [metad, self] = run(self)
+            self = self.loadHeader();
+            self = self.loadRaw();
+            
+            self = self.makeProps();
+            metad = table();
+            if ~isempty(self.FormSpec)
+                for icol = 1:width(self.raw)
+                    varName = self.raw.Properties.VariableNames{icol};
+                    if varName == "Row"
+                        varName = "RowReNamed";
+                    end
+                    newCol = Formatter(self.raw{:,icol}, self.FormSpec{icol}).run;
+                    metad.(varName) = newCol;
+                end
+            else
+                metad = self.raw;
+            end
+            if ~isempty(self.Heads)
+                metad.Properties = self.Heads;    
+            end
         end
     end
     
     methods (Access = private)
-        Heads = getHeaders(self)
-        out = setMeta(self, rawHead)
-        out = nestVars(self)
-    end
-    
-    methods (Static, Access = private)
-        raw = delExtra(raw)
+        self = loadRaw(self)
+        self = loadHeader(self)
+        
+        self = makeProps(self)
     end
 end

@@ -11,8 +11,8 @@ classdef Str
         end
         
         [ind, match_frac] = closestMatch(strVect, str)
+        dist = lev(str1, str2)
 
-        len = length(strs)
         joined = join(strs, joiner, delNaN)
         splits = strsplit(strs, delimiter)
         out = splitJoin(txt, parser, inds, fromEnd)
@@ -20,6 +20,8 @@ classdef Str
         out = eraseAny(orig, dels)
         str = eraseBtwn(str, startStr, endStr, boundaries)
         [str, tf] = eraseStart(str, match)
+        shorter = eraseUpto(str, match)
+        
         
         strred = type2str(val)
         [isMatch, start_inds, nextChars] = findNextChar(txt, patterns)
@@ -28,21 +30,7 @@ classdef Str
         
         inside = getInside(text, btwn_chars)
         outside = getOutside(text, btwn_chars)
-        
-        function capped = titleCase(text)
-            delim = " ";
-            parsed = split(text, delim);
-            capped = "";
-            for jword = parsed'
-                jchar = char(jword);
-                jupper = upper(jchar(1));
-                if length(jchar) > 1
-                    jupper = strcat(jupper, jchar(2:end), "");
-                end
-                capped = capped + delim + jupper;
-            end
-            capped = strip(capped, delim);
-        end
+        capped = titleCase(text)
     end
     
     methods (Static, Access = private)

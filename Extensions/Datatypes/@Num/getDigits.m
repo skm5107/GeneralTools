@@ -12,5 +12,5 @@ function [ints, decimals] = getDigits(number, precision_decimals)
     remainder_int = round(remainder * 10^decimal_qty);
     nonzeros = dec2base(remainder_int, 10) - '0';
     zeros_qty = decimal_qty - length(nonzeros);
-    decimals = Arr.pad(nonzeros, [1, zeros_qty], 0, 'left');
+    decimals = Arr.pad(nonzeros, [1, zeros_qty], 0);
 end

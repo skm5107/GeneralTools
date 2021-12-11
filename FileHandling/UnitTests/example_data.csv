@@ -1,8 +1,8 @@
 included_var,including_cat,log_subname,incld_cell,INCLDdate.clock
-q{;},C,L{\},r,D (dd-MM-yyyy) {|}
-#,#,#,minutes,datetime
+q{;},C,L{\},r,D (dd-MMM-yyyy) {|}
+,,,minutes,datetime
 these are semicolon-separated strings,these are categoricals,these are sets of logicals,these are strings within cells,these are formatted dates
-Example raw data,#,,#,#
+Example raw data,,,,
 str11; STRING 12,Categorical 1,true\false,string for a cell, 1-Jan-1900
 string21; 22string; 23 strings,Category-3,true;false;false,,28-Feb-1944 | 29-Feb-1944
-str A,cat.999,\false,missing,NaT
+str A,cat.999,false\false,missing,NaT
