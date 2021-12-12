@@ -1,29 +1,22 @@
-function self = splitDetails(self)
-    details = ChangeDetail.const.detailsEmpty;
-    detExp = ChangeDetail.const.detExp;
-    maxTries = ChangeDetail.const.maxTries;
+function self = splitDetails(self, splits)
     ntry = 1;
+    [splits.details(ntry), remainder] = splitNext(self.remainder, splits.exp);
     
-    [newDetail, remainder] = getNext(self.remainder, detExp);
-    details(ntry) = newDetail;
-    ntry = ntry + 1;
-    
-    while remainder ~= "" && ~isempty(newDetail) && ntry <= maxTries
-        [newDetail, remainder] = getNext(remainder, detExp);
-        details(ntry) = newDetail;
+    while remainder ~= "" && ~isempty(splits.details(ntry)) && ntry <= splits.maxTries
         ntry = ntry + 1;
+        [splits.details(ntry), remainder] = splitNext(remainder, splits.exp);
     end
     
-    self.details = details;
+    self.details = splits.details(~cellfun(@isempty, splits.details));
     self.remainder = remainder;
 end
 
-function [detail, remainder] = getNext(remainder, detExp)
-    [detail, endInd] = regexp(remainder, detExp, 'match', 'end');
+function [detail, remainder] = splitNext(remainder, exp)
+    [detail, endInd] = regexp(remainder, exp.mid, 'tokens', 'end');
     if ~isempty(endInd)
         remainder = strtrim(extractAfter(remainder, endInd));
     else
-        detail = remainder;
+        detail = regexp(remainder, exp.end, 'tokens');
         remainder = "";
     end
 end

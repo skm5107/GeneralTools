@@ -52,23 +52,20 @@ function exps = loadExps()
     exps{ind}.input = 'Row 1: "Task Name" Start Week: 01/01/11 to: 02/02/22';
     exps{ind}.num = 1;
     exps{ind}.name = "Task Name";
-    exps{ind}.details = "Start Week: 01/01/11 to: 02/02/22";
-    exps{ind}.old = table();
-    exps{ind}.old.start = '01/01/11';
-    exps{ind}.new = table();
-    exps{ind}.new.start = '02/02/22';
+    exps{ind}.old = ChangeDetail.const.parses.old;
+    exps{ind}.old.start = "01/01/11";
+    exps{ind}.new = ChangeDetail.const.parses.new;
+    exps{ind}.new.start = "02/02/22";
     
     ind = ind + 1;
-    exps{ind}.input = 'Row 990: ""Receive Flight Solar Panel"" Task Name: Receive Flight Solar Panel to: "Receive Flight Solar Panel" Start Week: 1/1/11 to: 2/2/22';
+    exps{ind}.input = 'Row 990: ""Receive Flight Solar Panel"" Task Name: Receive Flight Solar Panel to: "Receive Flight Solar Panel" Start Week: 3/3/33 to: 4/4/44';
     exps{ind}.num = 990;
     exps{ind}.name = "Receive Flight Solar Panel";
-    exps{ind}.details = string({'Task Name: Receive Flight Solar Panel to: "Receive Flight Solar Panel"', ...
-        'Start Week: 1/1/11 to: 2/2/22'}); %#ok<STRCLQT>
-    exps{ind}.old = table();
-    exps{ind}.old.name = 'Receive Flight Solar Panel';
-    exps{ind}.old.start = '1/1/11';
-    exps{ind}.new = table();
-    exps{ind}.new.name = '"Receive Flight Solar Panel"';
-    exps{ind}.new.start = '2/2/22';    
+    exps{ind}.old = ChangeDetail.const.parses.old;
+    exps{ind}.old.name = "Receive Flight Solar Panel";
+    exps{ind}.old.start = "3/3/33";
+    exps{ind}.new = ChangeDetail.const.parses.new;
+    exps{ind}.new.name = """Receive Flight Solar Panel""";
+    exps{ind}.new.start = "4/4/44";    
 end
 

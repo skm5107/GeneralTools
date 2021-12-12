@@ -7,8 +7,8 @@ classdef ChangeDetail
         num
         name
         
-        old = table()
-        new = table()
+        old
+        new
     end
     
     properties %(Access = private)
@@ -29,19 +29,23 @@ classdef ChangeDetail
         
         function self = run(self)
             self = self.preClean();
-            self = self.getPre();
+            self = self.getPre(ChangeDetail.const.pres);
             if self.remainder ~= ""
-                self = self.splitDetails();
-                self = self.parseDetails();
+                self = self.splitDetails(ChangeDetail.const.splits);
+                self = self.asgnDetails(ChangeDetail.const.parses);
+                %self.checkAnswer()
+            else
+                self.old = ChangeDetail.const.parses.old;
+                self.new = ChangeDetail.const.parses.new;
             end
         end
     end
     
     methods (Access = private)
         self = preClean(self)
-        self = getPre(self)
-        self = splitDetails(self)
-        self = parseDetails(self)
+        self = getPre(self, pres)
+        self = splitDetails(self, splits)
+        self = asgnDetails(self, parses)
 
         self = getRemainder(self, endInd, remVals)
     end
