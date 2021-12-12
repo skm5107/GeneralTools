@@ -12,6 +12,8 @@ classdef Obj
     end
     
     methods (Static)
+        converted = cast(origVal, reqClass)
+        
         function every = allclasses(value)
             base = string(class(value));
             every = [base; superclasses(base)];
@@ -22,10 +24,7 @@ classdef Obj
             summed = sum([celled{:}]);
         end
         
-        function converted = cast(origVal, reqClass) %#ok<INUSL>
-            fcn = reqClass + "(origVal)";
-            converted = eval(fcn);
-        end
+
         
         function Destin = props_copy(Orig, Destin, props)
             if nargin < 3

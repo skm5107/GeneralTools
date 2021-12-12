@@ -1,15 +1,6 @@
 classdef Str
-    methods (Static)
-        function tf = contains(strVect, str)
-            tf = Str.strloop(strVect, str, @contains);
-        end
-        function tf = startsWith(strVect, str)
-            tf = Str.strloop(strVect, str, @startsWith);
-        end
-        function tf = endsWith(strVect, str)
-            tf = Str.strloop(strVect, str, @endsWith);
-        end
-        
+    methods (Static)        
+        tf = loop(str, patVect, hndl)
         [ind, match_frac] = closestMatch(strVect, str)
         dist = lev(str1, str2)
 
@@ -34,7 +25,6 @@ classdef Str
     end
     
     methods (Static, Access = private)
-        tf = strloop(strVect, str, hndl)
         [text, start_ind, end_ind] = inds_find(text, btwn_chars)
         ind = get_ind(text, reqChar)
     end        

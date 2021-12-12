@@ -9,6 +9,8 @@ classdef Tbl
     end
     
     methods (Static)
+        tbl = asgnMatchVars(src, tbl)
+        
         [nest, nestNames] = nested_name(varName, val)
         flatNames = names_flatten(orig);
         joint = nested_horzcat(old, new)
@@ -60,6 +62,7 @@ classdef Tbl
     end
     
     methods (Static)
+        tbl = copyEmpty(src)
         function emptied = flat_empty(orig)
             emptied = Tbl.empty_create(orig, "missVal");
         end
