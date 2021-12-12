@@ -1,22 +1,20 @@
 function self = parseDetails(self)
-    typeExp = ChangeDetail.const.typeExp;
+    parseExp = ChangeDetail.const.parseExp;
+    typeInd = ChangeDetail.const.typeInd;
+    oldInd = ChangeDetail.const.oldInd;
+    newInd = ChangeDetail.const.newInd;
+    colNames = ChangeDetail.const.colNames;
+    types = ChangeDetail.const.types;
     for idetail = 1:length(self.details)
-        type = regexp(self.details(idetail), typeExp, 'match');
-    
-    %     for jtype = ChangeDetail.types
-    %         jexp = sprintf(ChangeDetail.detExp, jtype);
-    %         [match, endInd] = regexp(self.remainder, jexp, 'match', 'end');
-    %         if ~isempty(endInd)
-    %             self.old.(jtype) = match;
-    %             break
-    %         end
-    %     end
-    %     self = self.getRemainder(endInd, ChangeDetail.detRem);
-    %     self.remainder
-    %     new = getNew(self)
-    % end
-    %
-    % function new = getNew(self)
-    %     if
-    % end
+        splits = regexp(self.details(idetail), parseExp, 'tokens');
+        splits = splits{1};
+        jtype = splits{typeInd};
+        jcol = colNames(types == jtype);
+        if jcol ~= ""
+            jold = splits{oldInd};
+            jnew = splits{newInd};
+            self.old.(jcol) = jold;
+            self.new.(jcol) = jnew;
+        end
+    end
 end

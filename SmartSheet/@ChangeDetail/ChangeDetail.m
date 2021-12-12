@@ -28,17 +28,20 @@ classdef ChangeDetail
         end
         
         function self = run(self)
-            self.remainder = self.raw;
-            self = self.getNum();
-            self = self.getName();
-            self = self.splitDetails();
+            self = self.preClean();
+            self = self.getPre();
+            if self.remainder ~= ""
+                self = self.splitDetails();
+                self = self.parseDetails();
+            end
         end
     end
     
     methods (Access = private)
+        self = preClean(self)
         self = getPre(self)
-        self = getName(self, remainder)
-        self = parseDetails(self, remainder)
+        self = splitDetails(self)
+        self = parseDetails(self)
 
         self = getRemainder(self, endInd, remVals)
     end
