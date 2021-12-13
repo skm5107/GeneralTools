@@ -17,6 +17,8 @@ classdef ChangeDetail
     end
     
     properties (Constant, Hidden)%, Access = private)
+        missVal = "(blank)"
+        funcPre = "="
         const = ChangeDetail.setup()
     end
     
@@ -32,7 +34,7 @@ classdef ChangeDetail
             self = self.getPre(ChangeDetail.const.pres);
             if self.remainder ~= ""
                 self = self.splitDetails(ChangeDetail.const.splits);
-                self = self.asgnDetails(ChangeDetail.const.parses);
+                self = self.asgnDetails(ChangeDetail.const.parses, ChangeDetail.const.key);
                 %self.checkAnswer()
             else
                 self.old = ChangeDetail.const.parses.old;
@@ -45,7 +47,7 @@ classdef ChangeDetail
         self = preClean(self)
         self = getPre(self, pres)
         self = splitDetails(self, splits)
-        self = asgnDetails(self, parses)
+        self = asgnDetails(self, parses, key)
 
         self = getRemainder(self, endInd, remVals)
     end

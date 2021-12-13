@@ -1,0 +1,28 @@
+smartsheet,tblVar,hndl
+q,q,q
+#,#,#
+Term in Smartsheet Activity Log,VariableName for ChangeDetail tables,Conversion handle from string to datatype
+Key for reading terms in MoonRanger Smartsheet Activity Log,,
+Duration,dur_bus,@string
+Finish,finish,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+% Complete,complete_pcent,@str2double
+Comments,comments,@string
+Start Week,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+Start,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+State,state,@categorical
+Assigned To,assignee,@categorical
+Predecessors,preds,@string
+Task Name,name,@string
+crit,icCP,@Frmt.log
+Slack,slack,@days
+Status Yellow\?,missing,@string
+Status Grey\?,missing,@string
+Epic,missing,@string
+Parent\?,isParent,@Frmt.log
+Cost Less OH,missing,@string
+Cost (OH),missing,@string
+MATLAB,missing,@string
+No. Weeks,missing,@string
+Hrs.,missing,@string
+Hrs Per Sprint,missing,@string
+Allocation,missing,@string

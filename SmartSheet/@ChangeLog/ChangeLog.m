@@ -31,7 +31,7 @@ classdef ChangeLog
             self = self.asgnHeads();
             self = self.trimActions();
             self = self.cleanFormat();
-            %self = self.parseDetails();
+            self = self.getDetails();
         end
     end
     
@@ -42,7 +42,7 @@ classdef ChangeLog
     methods (Access = private)
         self = asgnHeads(self)
         self = trimActions(self)
-        self = parseDetails(self)
+        self = getDetails(self)
         
         function self = cleanFormat(self)
             self.log.Action = [];

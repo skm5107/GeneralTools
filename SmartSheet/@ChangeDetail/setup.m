@@ -1,13 +1,13 @@
 function const = setup()
+    const.key = loadKey();
     const.pres = loadPre();
-    
-    types = ["Duration", "Finish", "% Complete", "Comments", ...
-        "Start Week", "Start", "State", "Assigned To", "Predecessors", ...
-        "Task Name", "crit", "Slack", "Status Yellow", "Status Gray"...
-        "Epic", "Parent?", "Cost Less OH", "Cost (OH)", "MATLAB", ...
-        "No. Weeks", "Hrs.", "Hrs per Sprint",  "Allocation"];
-    const.splits = loadSplit(types);
-    const.parses = loadParse(types);
+    const.splits = loadSplit(const.key.smartsheet);
+    const.parses = loadParse(const.key);
+end
+
+function key = loadKey()
+    filePath = "detailsKey.csv";
+    key = FormattedCsv(filePath).run;
 end
 
 function pres = loadPre()
@@ -17,36 +17,29 @@ function pres = loadPre()
 end
 
 function splits = loadSplit(types)
-    startTypes = join(types, "|");
-    endTypes = join(types, "| ");
-    emptyMid = '(^%s)(: )(.*?)( to: )(.*?)(?= %s)';
+    typeStr = join(types, "|");
+    emptyMid = '(^%s)(: )(.*?)( to: )(.*?)( )(?=%s)';
     %TODO: combine these with an optional end-of-text or next detail type.
     %TODO: combine the entire thing with arbirarily repeated detail phrases
-    splits.exp.mid = sprintf(emptyMid, startTypes, endTypes);
+    splits.exp.mid = sprintf(emptyMid, typeStr, typeStr);
     
     emptyEnd = '(^%s?)(: )(.*?)( to: )(.*?)$';
-    splits.exp.end = sprintf(emptyEnd, startTypes);
+    splits.exp.end = sprintf(emptyEnd, typeStr);
     
     splits.maxTries = length(types);
     splits.details = cell(splits.maxTries, 1);
 end
 
-function parses = loadParse(types)
+function parses = loadParse(key)
     parses.exp = "(^.*?)(: )(.*)( to: )(.*)";
     parses.typeInd = 1;
     parses.oldInd = 3;
     parses.newInd = 5;
     
-    parses.types = types;
-    parses.varNames = ["dur_bus", "finish", "complete_pcent", "comments", ...
-        "start", "start", "state", "assigee", "preds", ...
-        "name", "isCP", "slack", "", "", ...
-        "", "isParent", "", "", "", ...
-        "", "", "", ""];
-    parses.tblVars = unique(parses.varNames(parses.varNames ~= ""));
-    parses.tblTypes = ["duration", "datetime", "double", "string", ...
-        "duration", "categorical", "categorical", "cell", ...
-        "string", "logical", "duration", "logical"];
-    parses.old = table('VariableNames', parses.tblVars, 'VariableTypes', parses.tblTypes, 'Size', [1, length(parses.tblVars)]);
+    tblVars = unique(key.tblVar(key.tblVar ~= "missing"));
+    tblTypes = repmat("string", [1,length(tblVars)]);
+    parses.old = table('VariableNames', tblVars, ...
+        'VariableTypes', tblTypes, ...
+        'Size', [1, length(tblVars)]);
     parses.new = parses.old;
 end

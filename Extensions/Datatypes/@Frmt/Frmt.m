@@ -32,6 +32,7 @@ classdef Frmt
         [val, arg2] = log(raw, ~)
         [val, arg2] = catTF(log, ~)
         [val, arg2] = logcat(raw, ~)
+        [val, arg2] = hndl(raw, ~)
     end
     
     methods (Static)

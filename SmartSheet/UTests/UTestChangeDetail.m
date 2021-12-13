@@ -49,23 +49,41 @@ function exps = loadExps()
     exps{ind}.name = "Row Number 333";
     
     ind = ind + 1;
+    exps{ind}.input = 'Row 4444: ""Row Number 4444""';
+    exps{ind}.num = 4444;
+    exps{ind}.name = "Row Number 4444";    
+    
+    ind = ind + 1;
     exps{ind}.input = 'Row 1: "Task Name" Start Week: 01/01/11 to: 02/02/22';
     exps{ind}.num = 1;
     exps{ind}.name = "Task Name";
     exps{ind}.old = ChangeDetail.const.parses.old;
-    exps{ind}.old.start = "01/01/11";
+    exps{ind}.old.start = datetime("01/01/11", 'InputFormat', "MM/dd/yy");
     exps{ind}.new = ChangeDetail.const.parses.new;
-    exps{ind}.new.start = "02/02/22";
+    exps{ind}.new.start = datetime("02/02/22", 'InputFormat', "MM/dd/yy");
     
     ind = ind + 1;
-    exps{ind}.input = 'Row 990: ""Receive Flight Solar Panel"" Task Name: Receive Flight Solar Panel to: "Receive Flight Solar Panel" Start Week: 3/3/33 to: 4/4/44';
-    exps{ind}.num = 990;
-    exps{ind}.name = "Receive Flight Solar Panel";
+    exps{ind}.input = 'Row 651: "Design of Wire Harness Part C" State: Red to: Green Duration: 116d to: 118d';
+    exps{ind}.num = 651;
+    exps{ind}.name = "Design of Wire Harness Part C";
     exps{ind}.old = ChangeDetail.const.parses.old;
-    exps{ind}.old.name = "Receive Flight Solar Panel";
-    exps{ind}.old.start = "3/3/33";
+    exps{ind}.old.state = categorical("Red");
+    exps{ind}.old.dur_bus = "116d";
     exps{ind}.new = ChangeDetail.const.parses.new;
-    exps{ind}.new.name = """Receive Flight Solar Panel""";
-    exps{ind}.new.start = "4/4/44";    
+    exps{ind}.new.state = categorical("Green");
+    exps{ind}.new.dur_bus = "118d";
+    
+    ind = ind + 1;
+    exps{ind}.input = 'Row 649: "Design of Wire Harness Part A" State: Red to: Green Duration: 113d to: 116d Start: 11/11/2021 to: 12/12/2022';
+    exps{ind}.num = 649;
+    exps{ind}.name = "Design of Wire Harness Part A";
+    exps{ind}.old = ChangeDetail.const.parses.old;
+    exps{ind}.old.state = categorical("Red");
+    exps{ind}.old.dur_bus = "113d";
+    exps{ind}.old.start = datetime("11/11/2021", 'InputFormat', "MM/dd/yy");
+    exps{ind}.new = ChangeDetail.const.parses.new;
+    exps{ind}.new.state = categorical("Green");
+    exps{ind}.new.dur_bus = "116d";  
+    exps{ind}.new.start = datetime("12/12/2022", 'InputFormat', "MM/dd/yy");
 end
 

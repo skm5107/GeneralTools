@@ -9,6 +9,12 @@ classdef Val
             vals(isempty(vals)) = fill;
         end
         
+        function miss = str2miss(val)
+            if val == "missing"
+                miss = string(missing);
+            end
+        end
+        
         orig = delmissing(orig)
         converted = castMissing(value)
         prop = delExtraMissing(prop)
