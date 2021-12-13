@@ -6,12 +6,13 @@
 clear classes
 clc
 
-fileName = "MoonRanger Schedule Activity Log - 20211210.csv";
-Log = ChangeLog(fileName).loadRaw;
-Log = Log.run();
+% fileName = "MoonRanger Schedule Activity Log - 20211210.csv";
+% Log = ChangeLog(fileName).loadRaw;
+% Log = Log.run();
 
 %%
-% clear classes
-% clc
-%runtests('UTestChangeDetail');
-% raw = 'Row 990: "Receive" Task Name: A to: B Start Week: 3/3/33 to: 4/4/44';
+clear classes
+clc
+runtests('UTestChangeDetail');
+%raw = 'Row 1: "MyName" Task Name: Other to: Start Comments: comet to: comet2';
+%ChangeDetail(raw).run

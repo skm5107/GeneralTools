@@ -18,10 +18,11 @@ end
 
 function splits = loadSplit(types)
     typeStr = join(types, "|");
+    endStr = join(types, ": |");
     emptyMid = '(^%s)(: )(.*?)( to: )(.*?)( )(?=%s)';
     %TODO: combine these with an optional end-of-text or next detail type.
     %TODO: combine the entire thing with arbirarily repeated detail phrases
-    splits.exp.mid = sprintf(emptyMid, typeStr, typeStr);
+    splits.exp.mid = sprintf(emptyMid, typeStr, endStr);
     
     emptyEnd = '(^%s?)(: )(.*?)( to: )(.*?)$';
     splits.exp.end = sprintf(emptyEnd, typeStr);
