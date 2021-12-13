@@ -6,6 +6,8 @@ classdef ChangeLog
     properties (SetAccess = private)
         raw
         log
+        deets
+        erred
         
         allActions
     end

@@ -1,10 +1,13 @@
 function self = getDetails(self)
-    for jdet = self.log.Details'
+    parsed = ChangeDetail.empty(0, length(self.log.Details));
+    erred = [];
+    for idet = 1:length(self.log.Details)
+        jdet = self.log.Details{idet};
         try
-            jparsed = ChangeDetail(jdet).run;
+            parsed(idet) = ChangeDetail(jdet).run;
         catch
-            error("ChangeDetail:unknown", "error in Detail %s", jdet{1});
+            self.erred = [erred, {idet, jdet}];
         end
     end
-    jparsed
+    self.deets = parsed;
 end
