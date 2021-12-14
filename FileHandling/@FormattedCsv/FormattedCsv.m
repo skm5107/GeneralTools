@@ -3,8 +3,8 @@ classdef FormattedCsv
         pathRaw (1,1) string
         pathHeader (1,1) string = string(missing)
         
-        headerRows (1,1) double = 5
-        rawSkipRows (1,1) double = 0
+        nheadRows (1,1) double = length(FormattedCsv.headProps)
+        nrawSkipRows (1,1) double = 0
         
         opts = FormattedCsv.defaultOpts
     end
@@ -50,7 +50,6 @@ classdef FormattedCsv
     end
     
     methods (Access = private)
-        opts = setHeadOpts(self)
         self = loadHeader(self)
         self = loadRaw(self)
         self = makeProps(self)
