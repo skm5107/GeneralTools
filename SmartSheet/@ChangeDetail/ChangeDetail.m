@@ -17,7 +17,7 @@ classdef ChangeDetail
     end
     
     properties (Constant, Hidden)%, Access = private)
-        missVal = "(blank)"
+        missVal = '(\(blank\))'
         funcPre = "="
         const = ChangeDetail.setup()
     end

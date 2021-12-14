@@ -1,28 +1,28 @@
-smartsheet,tblVar,hndl
-q,q,q
-#,#,#
-Term in Smartsheet Activity Log,VariableName for ChangeDetail tables,Conversion handle from string to datatype
-Key for reading terms in MoonRanger Smartsheet Activity Log,,
-Duration,dur_bus,@string
-Finish,finish,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
-% Complete,complete_pcent,@str2double
-Comments,comments,@string
-Start Week,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
-Start,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
-State,state,@categorical
-Assigned To,assignee,@categorical
-Predecessors,preds,@string
-Task Name,name,@string
-crit,icCP,@Frmt.log
-Slack,slack,@days
-Status Yellow\?,missing,@string
-Status Grey\?,missing,@string
-Epic,missing,@string
-Parent\?,isParent,@Frmt.log
-Cost Less OH,missing,@string
-Cost (OH),missing,@string
-MATLAB,missing,@string
-No. Weeks,missing,@string
-Hrs.,missing,@string
-Hrs Per Sprint,missing,@string
-Allocation,missing,@string
+smartsheet,clean,tblVar,hndl
+q,q,q,q
+#,#,#,#
+Term in Smartsheet Activity Log for regexp (includes escape characters),Term in Smartsheet Activity Log for string matching (no escape characters),VariableName for ChangeDetail tables,Conversion handle from string to datatype
+Key for reading terms in MoonRanger Smartsheet Activity Log,,,
+Duration,Duration,dur_bus,@string
+Finish,Finish,finish,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+% Complete,% Complete,complete_pcent,@str2double
+Comments,Comments,comments,@string
+Start Week,Start Week,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+Start,Start,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
+State,State,state,@categorical
+Assigned To,Assigned To,assignee,@categorical
+Predecessors,Predecessors,preds,@string
+Task Name,Task Name,name,@string
+crit,crit,icCP,@Frmt.log
+Slack,Slack,slack,@days
+Status Yellow\?,Status Yellow?,missing,@string
+Status Grey\?,Status Grey?,missing,@string
+Epic,Epic,missing,@string
+Parent\?,Parent?,isParent,@Frmt.log
+Cost Less OH,Cost Less OH,missing,@string
+Cost (OH),Cost (OH),missing,@string
+MATLAB,MATLAB,missing,@string
+No. Weeks,No. Weeks,missing,@string
+Hrs.,Hrs.,missing,@string
+Hrs Per Sprint,Hrs Per Sprint,missing,@string
+Allocation,Allocation,missing,@string

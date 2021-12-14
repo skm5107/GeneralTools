@@ -2,9 +2,9 @@ function self = asgnDetails(self, parses, key)
     for jdetail = self.details
         jdet = jdetail{1};
         jtype = jdet(parses.typeInd);
-        jind = (key.smartsheet == jtype);
+        jind = (key.clean == jtype);
         jcol = key.tblVar(jind);
-        if jcol ~= ""
+        if jcol ~= "" && jcol ~= "missing"
             [parses.old.(jcol), parses.new.(jcol)] = parseNext(jdet, jind, parses, key);
         end
     end

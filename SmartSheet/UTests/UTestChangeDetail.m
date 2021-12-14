@@ -7,12 +7,6 @@ classdef UTestChangeDetail < UTest
         omitfields = "input"
     end
     
-    methods(TestClassSetup)
-        function rerunSetup(~)
-            clear ChangeDetail
-        end
-    end
-    
     methods (Test, ParameterCombination ='sequential')
         function exps_test(tester, exps)
             act = ChangeDetail(exps.input).run;

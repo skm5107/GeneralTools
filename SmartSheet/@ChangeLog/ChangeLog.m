@@ -6,10 +6,12 @@ classdef ChangeLog
     properties (SetAccess = private)
         raw
         log
-        deets
         erred
-        
+    end
+    
+    properties (SetAccess = private, Hidden)
         allActions
+        allDetTypes
     end
     
     properties (Hidden)
@@ -29,7 +31,7 @@ classdef ChangeLog
         end
         
         function self = run(self)
-            %self = self.loadRaw();
+            self = self.loadRaw();
             self = self.asgnHeads();
             self = self.trimActions();
             self = self.cleanFormat();
@@ -37,11 +39,8 @@ classdef ChangeLog
         end
     end
     
-    methods %(Access = private)
-        self = loadRaw(self)
-    end
-    
     methods (Access = private)
+        self = loadRaw(self)
         self = asgnHeads(self)
         self = trimActions(self)
         self = getDetails(self)

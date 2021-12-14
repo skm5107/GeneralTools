@@ -3,31 +3,39 @@
 % Created: 12/11/2021
 
 close all
-clear
-%clc
+clear classes %#ok<CLCLS>
+clc
+warning('off', "ChangeDetail:split:undetectable")
 
 %% Create ChangeLog
 fileName = "MoonRanger Schedule Activity Log - 20211210.csv";
-Log = ChangeLog(fileName).loadRaw;
-Log = Log.run();
+Log = ChangeLog(fileName).run;
 
 %% Find Changes to Durations
+qtyErred = sum(~cellfun(@isempty, Log.erred));
+fprintf("Number of errored ChangeLog rows: %d.\n", length(Log.erred));
+
 oldDur = string.empty(0, length(Log.deets));
 newDur = string.empty(0, length(Log.deets));
-successes = 1;
+fails = true(0, length(Log.deets));
 for idet = 1:length(Log.deets)
     try
         oldDur(idet) = Log.deets(idet).old.dur_bus;
         newDur(idet) = Log.deets(idet).new.dur_bus;
-        successes = successes + 1;
+        fails(idet) = false;
     end
 end
 
 oldNum = convert(oldDur);
 newNum = convert(newDur);
 diffDurs = (newNum - oldNum)./oldNum*100;
-diff_pcent = nanmean(diffDurs)
-diff_qty = length(diffDurs(~isnan(diffDurs)))
+diffavg_pcent = nanmean(diffDurs);
+diffmed_pcent = nanmedian(diffDurs);
+diff_qty = length(diffDurs(~isnan(diffDurs)));
+
+fprintf("Duration success rate: %d sucesses, %d fails.\n", length(Log.deets) - sum(fails), sum(fails));
+fprintf("Duration results: %.2f%% average increase. %.2f%% median increase. %d duration changes.\n", ...
+    diffavg_pcent, diffmed_pcent, diff_qty);
 
 %% Helpers
 function durnum = convert(durstr)

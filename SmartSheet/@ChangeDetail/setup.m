@@ -7,11 +7,14 @@ end
 
 function key = loadKey()
     filePath = "detailsKey.csv";
+    orig = warning('off', 'FormattedCsv:Read:ExtraVar');
     key = FormattedCsv(filePath).run;
+    warning(orig);
 end
 
 function pres = loadPre()
     pres.exp = '(^Row?)( *?)([\d]*?)(: "?)(.*?)(")';
+    pres.expMiss = sprintf('(^Row?)( *?)([\\d]*?)(: ?)%s( *)(.*)', ChangeDetail.missVal);
     pres.numInd = 3;
     pres.nameInd = 5;
 end
@@ -37,7 +40,7 @@ function parses = loadParse(key)
     parses.oldInd = 3;
     parses.newInd = 5;
     
-    tblVars = unique(key.tblVar(key.tblVar ~= "missing"));
+    tblVars = unique(key.tblVar(key.tblVar ~= "missing" & key.tblVar ~= ""));
     tblTypes = repmat("string", [1,length(tblVars)]);
     parses.old = table('VariableNames', tblVars, ...
         'VariableTypes', tblTypes, ...

@@ -7,7 +7,13 @@ end
 
 function [splits, endInd] = getSplits(self, pres)
     [splits, endInd] = regexp(self.remainder, pres.exp, 'tokens', 'end');
-    splits = splits{1};
+    if ~isempty(endInd)
+        splits = splits{1};
+    else
+       pres.expMiss = sprintf('(^Row?)( *?)([\\d]*?)(: ?)%s( *)', ChangeDetail.missVal);
+       [splits, endInd] = regexp(self.remainder, pres.expMiss, 'tokens', 'end');
+       splits = splits{1};
+    end
 end
 
 function num = getNum(splits, pres)

@@ -1,25 +1,34 @@
 function self = splitDetails(self, splits)
     ntry = 1;
+    keepTry = true;
     [remainder, details] = splitNext(self.remainder, splits.exp);
     
-    while remainder ~= "" && ~isempty(splits.details(ntry)) && ntry <= splits.maxTries
+    while remainder ~= "" && ~isempty(splits.details(ntry)) && keepTry && ntry <= splits.maxTries
         ntry = ntry + 1;
-        [remainder, newDetail] = splitNext(remainder, splits.exp);
+        [remainder, newDetail, keepTry] = splitNext(remainder, splits.exp, keepTry);
         details = [details, newDetail];
     end
     
-    %self.details = splits.details(~cellfun(@isempty, splits.details));
     self.details = details;
     self.remainder = remainder;
 end
 
-function [remainder, detail] = splitNext(rem, exp)
+function [remainder, detail, keepTry] = splitNext(rem, exp, keepTry)
     [detail, endInd] = regexp(rem, exp.mid, 'tokens', 'end');
     if ~isempty(endInd)
         remainder = strtrim(extractAfter(rem, endInd(1)));
     else
         detail = regexp(rem, exp.end, 'tokens');
-        remainder = "";
+        remainder = checkDetail(detail, rem);
+        keepTry = false;
     end
-    assert(~isempty(detail), "ChangeDetail:split:undetectable", "Could not find detail in %s", rem)
+end
+
+function remainder = checkDetail(detail, rem)
+    if ~isempty(detail)
+        remainder = "";
+    else
+        warning("ChangeDetail:split:undetectable", "Could not find detail in %s", rem);
+        remainder = rem;
+    end
 end
