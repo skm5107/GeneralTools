@@ -28,6 +28,7 @@ classdef FormattedCsv
             "VariableUnitsLine", "VariableDescriptionsLine", ...
             "Description"];
         defaultOpts = FormattedCsv.loadDefaultOpts()
+        extraVarExp = "^Var[\d]+"
     end
     
     methods

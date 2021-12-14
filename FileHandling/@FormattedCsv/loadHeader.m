@@ -9,6 +9,7 @@ function self = loadHeader(self)
         self.opts.DataLines = [1, 1];
         emptyTbl = true;
     end
+    
     self.header = readtable(self.pathHeader, self.opts);
     if emptyTbl
         self.header(:,:) = [];
