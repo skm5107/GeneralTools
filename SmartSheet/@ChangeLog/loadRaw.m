@@ -1,4 +1,5 @@
 function self = loadRaw(self)
+    
     opts = detectImportOptions(self.filePath);
     raw = readtable(self.filePath, opts);
     raw = cleanRaw(raw);
@@ -10,8 +11,8 @@ function raw = cleanRaw(raw)
 end
 
 function raw = shorten(raw)
-    cap = 100;
-    if ~isnan(cap)
+    cap = 1000;
+    if ~isnan(cap) && height(raw) > cap
         raw = raw(1:cap, :);
         fprintf("Using only first %d rows of raw see ChangeLog.loadRaw\n", cap);
     end

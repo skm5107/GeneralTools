@@ -9,8 +9,18 @@ warning('off', "ChangeDetail:split:undetectable")
 
 %% Create ChangeLog
 fileName = "MoonRanger Schedule Activity Log - 20211210.csv";
+% fileName = "Example Activity Log.csv";
 Log = ChangeLog(fileName).run;
 
+%% Changed Task Creation
+viewer = table(Log.log.name, Log.log.old.name, Log.log.new.name);
+viewer.Properties.VariableNames = ["name", "old", "new"];
+CT = ChangedTask(Log.log(1,:), Log.log).run;
+
+completes = Log.log(1:5,:);
+CH = ChangeHistory(completes, Log.log).run;
+
+return
 %% Find Changes to Durations
 qtyErred = sum(~cellfun(@isempty, Log.erred));
 fprintf("Number of errored ChangeLog rows: %d.\n", qtyErred);

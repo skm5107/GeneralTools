@@ -1,20 +1,26 @@
 classdef ChangedTask
     properties
-        row (1,1) string = missing
-        Log
+        row (1,:) table
+        log table
     end
     
     properties (SetAccess = private)
-        oldNames
+        prevRows
+    end
+    
+    properties (Constant, Access = private)
+        maxLev = 10
+        firstName = "(blank)"
+        maxTries = 10
     end
     
     methods
-        function self = ChangedTask(name)
+        function self = ChangedTask(row, log)
             if nargin > 0
-                self.name = name;
+                self.row = row;
             end
             if nargin > 1
-                self.Log = Log;
+                self.log = log;
             end
         end
         

@@ -1,0 +1,5 @@
+﻿Action,User,Details,Source,Time Stamp
+q,q,q,q,D(MM/dd/uuuu hh:mm:ss aa)
+#,#,#,#,#
+Action in Smartsheet format,Smartsheet user,Details in Smartsheet format,Smartsheet source,Timestamp in Smartsheet format
+Smartsheet automatic change log header format,,,,

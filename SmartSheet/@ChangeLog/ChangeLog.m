@@ -21,6 +21,7 @@ classdef ChangeLog
     properties (Access = private, Constant)
         headCols = ["Action", "User", "TimeStamp"]
         headDefs = {string(missing), string(missing), NaT}
+        headPath = "Activity Log Header.csv";
     end
     
     methods
