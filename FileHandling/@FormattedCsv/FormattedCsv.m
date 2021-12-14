@@ -5,6 +5,8 @@ classdef FormattedCsv
         
         headerRows (1,1) double = 5
         rawSkipRows (1,1) double = 0
+        
+        opts = FormattedCsv.defaultOpts
     end
     
     properties (SetAccess = private)
@@ -19,8 +21,13 @@ classdef FormattedCsv
     end
     
     properties (Access = private, Constant)
-        headRows = ["FormSpec", "VariableUnits", ...
-                    "VariableDescriptions", "Description"];
+        headProps = ["FormSpec", ...
+            "VariableUnits", "VariableDescriptions", ...
+            "Description"];
+        headOpts = ["VariableNamesLine", "FormSpec", ...
+            "VariableUnitsLine", "VariableDescriptionsLine", ...
+            "Description"];
+        defaultOpts = FormattedCsv.loadDefaultOpts()
     end
     
     methods
@@ -38,29 +45,19 @@ classdef FormattedCsv
             self = self.loadRaw();
             
             self = self.makeProps();
-            metad = table();
-            if ~isempty(self.FormSpec)
-                for icol = 1:width(self.raw)
-                    varName = self.raw.Properties.VariableNames{icol};
-                    if varName == "Row"
-                        varName = "RowReNamed";
-                    end
-                    newCol = Formatter(self.raw{:,icol}, self.FormSpec{icol}).run;
-                    metad.(varName) = newCol;
-                end
-            else
-                metad = self.raw;
-            end
-            if ~isempty(self.Heads)
-                metad.Properties = self.Heads;    
-            end
+            [self, metad] = self.formatMeta();
         end
     end
     
     methods (Access = private)
-        self = loadRaw(self)
+        opts = setHeadOpts(self)
         self = loadHeader(self)
-        
+        self = loadRaw(self)
         self = makeProps(self)
+        [self, metad] = formatMeta(self)
+    end
+    
+    methods (Static, Access = private)
+        opts = loadDefaultOpts()
     end
 end

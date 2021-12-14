@@ -5,6 +5,7 @@ function self = loadHeader(self)
     else
         pathHead = self.pathHeader;
     end
+%     self = self.setHeadOpts();
     opts = detectImportOptions(pathHead);
     if self.headerRows > 1
         opts.DataLines = [2, self.headerRows];
