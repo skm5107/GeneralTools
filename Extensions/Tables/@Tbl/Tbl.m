@@ -10,6 +10,15 @@ classdef Tbl
     
     methods (Static)
         tbl = asgnMatchVars(src, tbl)
+        target = copyProps(target, new, onlyExistent)
+        function flds = getStructFlds(tblORstruct)
+            if istable(tblORstruct)
+                flds = string(tblORstruct.Properties.VariableNames);
+            else
+                flds = string(fieldnames(tblORstruct));
+            end
+        end
+        
         
         [nest, nestNames] = nested_name(varName, val)
         flatNames = names_flatten(orig);
@@ -62,7 +71,7 @@ classdef Tbl
     end
     
     methods (Static)
-        tbl = copyEmpty(src)
+        emp = copyEmpty(src, hgt)
         function emptied = flat_empty(orig)
             emptied = Tbl.empty_create(orig, "missVal");
         end
