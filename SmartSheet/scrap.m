@@ -3,7 +3,7 @@
 % Created: 12/11/2021
 
 close all
-clear classes %#ok<CLCLS>
+clear
 clc
 warning('off', "ChangeDetail:split:undetectable")
 
@@ -13,39 +13,30 @@ Log = ChangeLog(fileName).run;
 
 %% Find Changes to Durations
 qtyErred = sum(~cellfun(@isempty, Log.erred));
-fprintf("Number of errored ChangeLog rows: %d.\n", length(Log.erred));
+fprintf("Number of errored ChangeLog rows: %d.\n", qtyErred);
 
-oldDur = string.empty(0, length(Log.deets));
-newDur = string.empty(0, length(Log.deets));
-fails = true(0, length(Log.deets));
-for idet = 1:length(Log.deets)
-    try
-        oldDur(idet) = Log.deets(idet).old.dur_bus;
-        newDur(idet) = Log.deets(idet).new.dur_bus;
-        fails(idet) = false;
-    end
-end
+durs.old = getDurs(Log.log.old.dur_bus);
+durs.new = getDurs(Log.log.new.dur_bus);
 
-oldNum = convert(oldDur);
-newNum = convert(newDur);
-diffDurs = (newNum - oldNum)./oldNum*100;
-diffavg_pcent = nanmean(diffDurs);
-diffmed_pcent = nanmedian(diffDurs);
-diff_qty = length(diffDurs(~isnan(diffDurs)));
+durs.diff.vals = (durs.new - durs.old) ./ durs.old * 100;
+durrs.diff.avg_pcent = nanmean(durs.diff.vals);
+durs.diff.med_pcent = nanmedian(durs.diff.vals);
+durs.diff.qty = length(durs.diff.vals(~isnan(durs.diff.vals)));
 
-fprintf("Duration success rate: %d sucesses, %d fails.\n", length(Log.deets) - sum(fails), sum(fails));
 fprintf("Duration results: %.2f%% average increase. %.2f%% median increase. %d duration changes.\n", ...
-    diffavg_pcent, diffmed_pcent, diff_qty);
+    durrs.diff.avg_pcent, durs.diff.med_pcent, durs.diff.qty);
 
 %% Helpers
-function durnum = convert(durstr)
-    durcell = num2cell(durstr);
-    durnum = cellfun(@convert1, durcell);
+function durs = getDurs(log)
+    log(contains(log, "=")) = missing;
+    log(log=="(blank)") = missing;
+    log = num2cell(log);
+    durs = cellfun(@convert, log);
 end
 
-function dur = convert1(str)
-    if ismissing(str) || str == "(blank)" || contains(str, "=")
-        dur = days(NaN);
+function dur = convert(str)
+    if ismissing(str)
+        dur = NaT-NaT;
     elseif str == "0"
         dur = days(0);
     elseif contains(str, "d")
@@ -56,5 +47,3 @@ function dur = convert1(str)
         error("Unknown duration text: %s", str);
     end
 end
-
-

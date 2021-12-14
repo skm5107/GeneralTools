@@ -6,7 +6,7 @@ function const = setup()
 end
 
 function key = loadKey()
-    filePath = "detailsKey.csv";
+    filePath = "textKey.csv";
     orig = warning('off', 'FormattedCsv:Read:ExtraVar');
     key = FormattedCsv(filePath).run;
     warning(orig);

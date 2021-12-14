@@ -1,4 +1,4 @@
-function self = splitDetails(self, splits)
+function self = splitText(self, splits)
     ntry = 1;
     keepTry = true;
     [remainder, details] = splitNext(self.remainder, splits.exp);

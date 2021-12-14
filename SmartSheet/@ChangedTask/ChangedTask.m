@@ -1,6 +1,6 @@
 classdef ChangedTask
     properties
-        name (1,1) string = missing
+        row (1,1) string = missing
         Log
     end
     
@@ -19,7 +19,11 @@ classdef ChangedTask
         end
         
         function self = run(self)
-            self.oldNames = getOldNames(
+            self = getOldNames(self);
         end
+    end
+    
+    methods (Access = private)
+        self = getOldNames(self)
     end
 end

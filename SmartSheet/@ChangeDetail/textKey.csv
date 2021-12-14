@@ -1,7 +1,7 @@
 smartsheet,clean,tblVar,hndl
 q,q,q,q
 #,#,#,#
-Term in Smartsheet Activity Log for regexp (includes escape characters),Term in Smartsheet Activity Log for string matching (no escape characters),VariableName for ChangeDetail tables,Conversion handle from string to datatype
+Term in Smartsheet Activity Log for regexp (includes escape characters),Term in Smartsheet Activity Log for string matching (no escape characters),VariableName for ChangeDetail,Conversion handle from string to datatype
 Key for reading terms in MoonRanger Smartsheet Activity Log,,,
 Duration,Duration,dur_bus,@string
 Finish,Finish,finish,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
