@@ -5,7 +5,7 @@ Term in Smartsheet Activity Log for regexp (includes escape characters),Term in 
 Key for reading terms in MoonRanger Smartsheet Activity Log,,,
 Duration,Duration,dur_bus,@string
 Finish,Finish,finish,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
-% Complete,% Complete,complete_pcent,@str2double
+% Complete,% Complete,complete_pcent,@string
 Comments,Comments,comments,@string
 Start Week,Start Week,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"
 Start,Start,start,"@(str) datetime(str, 'InputFormat', ""MM/dd/yy"")"

@@ -50,6 +50,6 @@ classdef ChangeDetail
     end
     
     methods (Static, Access = private)
-        const = setup()            
+        const = setup()
     end
 end

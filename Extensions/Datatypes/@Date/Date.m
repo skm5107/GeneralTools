@@ -25,6 +25,8 @@ classdef Date
              dur = max(dates) - min(dates);
         end
         
+        dur = str2dur(str)
+        
         function dur = vect2dur(timevect)
             timecell = num2cell(timevect);
             [yr, mth, d, hr, min, sec] = deal(timecell{:});

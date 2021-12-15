@@ -3,40 +3,48 @@ function self = getOldNames(self)
     isFirst = false;
     
     jcur = self.row;
+    restLog = log;
     itry = 1;
     irow = 1;
     while ~isFirst && itry <= self.maxTries
-        jcur = getPrevRow(jcur, log);
+        [jcur, restLog] = getPrevRow(jcur(end,:), restLog);
         lastrow = height(jcur) + irow - 1;
         prevRows(irow:lastrow,:) = jcur;
         irow = lastrow + 1;
-        isFirst = jcur.old.name(end) == self.firstName;
+        if ~isempty(jcur)
+            isFirst = jcur.old.name(end) == self.firstName;
+        else
+            isFirst = true;
+        end
         itry = itry + 1;
     end
     self.prevRows = prevRows;
 end
 
-function prevRow = getPrevRow(curRow, log)
+function [prevRow, restLog] = getPrevRow(curRow, log)
     if ismissing(curRow.old.name)
         oldName = curRow.name;
     else
         oldName = curRow.old.name;
     end
-    ind = compareNames(oldName, log.new.name);
+    ind = compareNames(oldName, log.new.name, curRow.num, log.num);
     prevRow = log(ind,:);
+    restLog = log(ind+1:end,:);
 end
 
-function ind = compareNames(searchName, newNames)
-    ind = newNames == searchName;
-    if ~any(ind)
-        ind = getSimiliar(searchName, newNames);
-    end
+function ind = compareNames(searchName, newNames, searchNum, newNums)
+    indNames = newNames == searchName;
+%     if ~any(indNames)
+%         %indNames = getSimiliar(searchName, newNames);
+%     end    
+    indNums = newNums == searchNum;
+    ind = and(indNames, indNums);
 end
 
 function ind = getSimiliar(searchName, newNames)
     levs = Str.lev(searchName, newNames);
     [val, ind] = min(levs);
-    if val > self.maxLev
+    if val > ChangedTask.maxLev
         ind = NaN;
     end
     warning("Using similar string for Task Name identification: %s", searchName);

@@ -34,7 +34,7 @@ classdef ChangeLog
         function self = run(self)
             self = self.loadRaw();
             self = self.asgnHeads();
-            self = self.trimActions();
+            %self = self.trimActions();
             self = self.cleanFormat();
             self = self.getDetails();
         end

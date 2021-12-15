@@ -11,7 +11,7 @@ function raw = cleanRaw(raw)
 end
 
 function raw = shorten(raw)
-    cap = 1000;
+    cap = NaN;
     if ~isnan(cap) && height(raw) > cap
         raw = raw(1:cap, :);
         fprintf("Using only first %d rows of raw see ChangeLog.loadRaw\n", cap);
